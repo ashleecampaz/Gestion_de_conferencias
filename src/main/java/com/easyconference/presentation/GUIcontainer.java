@@ -217,16 +217,16 @@ public class GUIcontainer extends javax.swing.JFrame {
         GUIcreateConference crearConferencia = new GUIcreateConference();
         GUIcreateArticle crearAriticulo = new GUIcreateArticle();
         try {
-            //crearConferencia.setMaximum(true);
-            crearAriticulo.setMaximum(true);
+            crearConferencia.setMaximum(true);
+           
         } catch (PropertyVetoException ex) {
             Logger.getLogger(GUIcontainer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dskpaneContenedor.add(crearAriticulo, java.awt.BorderLayout.CENTER);
-        //dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
+        
+        dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
         intfInicio.setVisible(false);
-        crearAriticulo.setVisible(true);
-        //crearConferencia.setVisible(true);
+       
+        crearConferencia.setVisible(true);
         
     }//GEN-LAST:event_lbCrearConMouseClicked
 
