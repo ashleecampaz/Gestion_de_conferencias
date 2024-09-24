@@ -5,11 +5,11 @@
 package com.easyconference.gestion_conferencias;
 
 import com.easyconference.access.Factory;
-import com.easyconference.domain.service.IUserService;
 import com.easyconference.domain.service.UserService;
 import com.easyconference.presentation.GUIcontainer;
 import com.easyconference.presentation.GUIlogin;
 import com.easyconference.presentation.GUIregister;
+import com.easyconference.access.IUserService;
 
 /**
  *
@@ -19,7 +19,7 @@ public class Gestion_conferencias {
 
     public static void main(String[] args) {
         IUserService repoPro = (IUserService) Factory.getInstance().getRepository("default");
-        UserService userService = new UserService(repoPro);
+        UserService userService = new UserService((IUserService) repoPro);
         GUIlogin login = new GUIlogin(userService);
         login.setLocationRelativeTo(null);
         login.setVisible(true);

@@ -4,6 +4,8 @@
  */
 package com.easyconference.presentation;
 
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ConferenceService;
 import java.beans.PropertyVetoException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -14,14 +16,16 @@ import javax.swing.plaf.basic.BasicInternalFrameUI;
  * @author Ashlee Campaz
  */
 public class GUIcontainer extends javax.swing.JFrame {
-
+    private Usuario usuario;
+    private ConferenceService conferenceService; 
     /**
      * Creates new form GUIcontainer
      */
-    public GUIcontainer() {
+    public GUIcontainer(Usuario us, ConferenceService con) {
+        this.usuario = us;
+        this.conferenceService = con; 
         initComponents();
-        //BasicInternalFrameUI bi = (BasicInternalFrameUI)intfInicio.getUI();
-        //bi.setNorthPane(null);
+        
     }
 
     /**
@@ -74,7 +78,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         intfInicio.getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lbBienvenido.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        lbBienvenido.setText("Bienvenido! user_name");
+        lbBienvenido.setText("Bienvenido! "+ usuario.getName() + " " + usuario.getLastName());
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -226,40 +230,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         
     }//GEN-LAST:event_lbCrearConMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIcontainer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIcontainer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIcontainer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIcontainer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIcontainer().setVisible(true);
-            }
-        });
-    }
+  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskpaneContenedor;

@@ -4,6 +4,9 @@
  */
 package com.easyconference.presentation;
 
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ConferenceService;
+import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.service.UserService;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
@@ -219,14 +222,17 @@ public class GUIlogin extends javax.swing.JFrame {
 
     private void lbNotienesCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNotienesCuentaMouseClicked
         this.dispose();
-        GUIregister registro = new GUIregister();
+        GUIregister registro = new GUIregister(userService);
         registro.setVisible(true);
     }//GEN-LAST:event_lbNotienesCuentaMouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-        if(userService.login(txtfCorreo.getText(),new String( pswfContrasenia.getPassword()))){
+       Usuario us = userService.login(txtfCorreo.getText(),new String( pswfContrasenia.getPassword()));
+        if(us!=null){
             this.dispose();
-            GUIcontainer inicio = new GUIcontainer();
+            
+            ConferenceService conferenceService = new ConferenceService((IConferenceService)userService.getRepository());
+            GUIcontainer inicio = new GUIcontainer(us,conferenceService);
             inicio.setVisible(true);
         }
         else{
@@ -235,43 +241,7 @@ public class GUIlogin extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIlogin.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIlogin().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;

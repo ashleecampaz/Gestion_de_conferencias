@@ -3,22 +3,80 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package com.easyconference.presentation;
+
 import java.awt.Dimension;
 import javax.swing.BorderFactory;
 import javax.swing.SpringLayout;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.TitledBorder;
-/**
- *
- * @author Ashlee Campaz
- */
+import javax.swing.JOptionPane;
+import java.util.ArrayList;
+import  javax.swing.JOptionPane;
+
+import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.UserService;
+import java.util.List;
+
+
 public class GUIregister extends javax.swing.JFrame {
 
-    /**
-     * Creates new form register
-     */
-    public GUIregister() {
+    private UserService registerService;
+    
+
+    public GUIregister(UserService registerService) {
         initComponents();
+        this.registerService = registerService;
+        setupEventListeners();
+    }
+    
+   
+    
+    private void setupEventListeners() {
+        btnRegistrar.addActionListener(e -> handleRegistration());
+        // Añadir un nuevo botón para imprimir usuarios (si no existe, créalo en el diseño)
+        btnImprimirUsuarios.addActionListener(e -> btnImprimirUsuariosActionPerformed(null)); 
+    }
+    
+    private void handleRegistration() {
+        String name = txtfNombre.getText();
+        String lastName = txtfApellido.getText();
+        String email = txtfCorreo.getText();
+        String password = new String(txtfContrasenia.getText());
+        
+        String confirmPassword = new String(txtConContrasenia.getText());
+        String country = txtfPais.getText();
+        String organization = txtfOrganizacion.getText();
+        String fields = txtaCamposInv.getText();
+
+        // Validate that the passwords match
+        if (!password.equals(confirmPassword)) {
+            JOptionPane.showMessageDialog(this, "Las contraseñas no coinciden", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        // Register the user through the service
+        boolean registered = registerService.registerUser(name, lastName, email, password, country, organization, fields);
+
+        // Handle successful registration
+        if (registered) {
+            clearFields();  // Clear form fields after successful registration
+            JOptionPane.showMessageDialog(this, "Usuario registrado con éxito.", "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(this, "El email ya está registrado. Intente con otro.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    private void clearFields() {
+        txtfNombre.setText("");
+        txtfNombre.setText("");
+        txtfCorreo.setText("");
+        txtfContrasenia.setText("");
+        txtConContrasenia.setText("");
+        txtfPais.setText("");
+        txtfApellido.setText("");
+        txtfOrganizacion.setText("");
+        txtaCamposInv.setText("");
     }
 
     /**
@@ -36,7 +94,7 @@ public class GUIregister extends javax.swing.JFrame {
         lbEasyConference = new javax.swing.JLabel();
         pnlFormulario = new javax.swing.JPanel();
         txtfPais = new javax.swing.JTextField();
-        txtfApellido = new javax.swing.JTextField();
+        txtfNombre = new javax.swing.JTextField();
         txtfCorreo = new javax.swing.JTextField();
         txtfContrasenia = new javax.swing.JTextField();
         txtConContrasenia = new javax.swing.JTextField();
@@ -45,10 +103,10 @@ public class GUIregister extends javax.swing.JFrame {
         lbYatienesCuenta = new javax.swing.JLabel();
         sclpCamposInv = new javax.swing.JScrollPane();
         txtaCamposInv = new javax.swing.JTextArea();
-        txtfNombre = new javax.swing.JTextField();
+        btnImprimirUsuarios = new javax.swing.JButton();
+        txtfApellido = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setMaximumSize(java.awt.Toolkit.getDefaultToolkit().getScreenSize());
         setMinimumSize(new java.awt.Dimension(682, 542));
         setPreferredSize(new java.awt.Dimension(800, 690));
         setSize(new java.awt.Dimension(784, 649));
@@ -71,11 +129,6 @@ public class GUIregister extends javax.swing.JFrame {
 
         txtfPais.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         txtfPais.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Pais", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        txtfPais.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfPaisActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -86,20 +139,25 @@ public class GUIregister extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(26, 32, 0, 0);
         pnlFormulario.add(txtfPais, gridBagConstraints);
 
-        txtfApellido.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        txtfApellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        txtfNombre.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        txtfNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 2;
+        gridBagConstraints.gridy = 1;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.8;
         gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
-        pnlFormulario.add(txtfApellido, gridBagConstraints);
+        pnlFormulario.add(txtfNombre, gridBagConstraints);
 
         txtfCorreo.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         txtfCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Correo electronico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        txtfCorreo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfCorreoActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 3;
@@ -138,6 +196,11 @@ public class GUIregister extends javax.swing.JFrame {
 
         txtfOrganizacion.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         txtfOrganizacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Organizacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        txtfOrganizacion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfOrganizacionActionPerformed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -200,22 +263,30 @@ public class GUIregister extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(28, 34, 28, 34);
         pnlFormulario.add(sclpCamposInv, gridBagConstraints);
 
-        txtfNombre.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        txtfNombre.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Nombre", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        txtfNombre.addActionListener(new java.awt.event.ActionListener() {
+        btnImprimirUsuarios.setText("ImprimirUsuarios");
+        btnImprimirUsuarios.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfNombreActionPerformed(evt);
+                btnImprimirUsuariosActionPerformed(evt);
+            }
+        });
+        pnlFormulario.add(btnImprimirUsuarios, new java.awt.GridBagConstraints());
+
+        txtfApellido.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        txtfApellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        txtfApellido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtfApellidoActionPerformed(evt);
             }
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 1;
+        gridBagConstraints.gridy = 2;
         gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
         gridBagConstraints.ipadx = 100;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
         gridBagConstraints.weightx = 0.8;
-        gridBagConstraints.insets = new java.awt.Insets(26, 32, 0, 0);
-        pnlFormulario.add(txtfNombre, gridBagConstraints);
+        gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
+        pnlFormulario.add(txtfApellido, gridBagConstraints);
 
         javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
         pnlFondo.setLayout(pnlFondoLayout);
@@ -249,66 +320,61 @@ public class GUIregister extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtfPaisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfPaisActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfPaisActionPerformed
+    private void txtfNombreActionPerformed(java.awt.event.ActionEvent evt) {                                           
+        txtfNombre.requestFocus(); 
+    }                                          
 
     private void lbYatienesCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbYatienesCuentaMouseEntered
         lbYatienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 1, 12));
     }//GEN-LAST:event_lbYatienesCuentaMouseEntered
-
+    
     private void lbYatienesCuentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbYatienesCuentaMouseExited
         lbYatienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 0, 12));
     }//GEN-LAST:event_lbYatienesCuentaMouseExited
-
-    private void txtfNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfNombreActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtfNombreActionPerformed
+    
+   
 
     private void lbYatienesCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbYatienesCuentaMouseClicked
         this.dispose();
-        GUIlogin login = new GUIlogin();
+        GUIlogin login = new GUIlogin(registerService);
         login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_lbYatienesCuentaMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIregister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIregister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIregister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIregister.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
+    private void txtfCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfCorreoActionPerformed
+        txtfContrasenia.requestFocus();
+    }//GEN-LAST:event_txtfCorreoActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new GUIregister().setVisible(true);
-            }
-        });
-    }
+    private void cmbPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisesActionPerformed
+        txtfOrganizacion.requestFocus();
+    }//GEN-LAST:event_cmbPaisesActionPerformed
+
+    private void txtfOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfOrganizacionActionPerformed
+        txtaCamposInv.requestFocus();
+    }//GEN-LAST:event_txtfOrganizacionActionPerformed
+
+    private void btnImprimirUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirUsuariosActionPerformed
+        // TODO add your handling code here:
+        //List<Usuario> users = repository.listUsuario();
+        System.out.println("Usuarios registrados:");
+       /** for (Usuario user : users) {
+            System.out.println("Nombre: " + user.getName() + " " + user.getLastName());
+            System.out.println("Email: " + user.getEmail());
+            System.out.println("País: " + user.getCountry());
+            System.out.println("Organización: " + user.getOrganization());
+            System.out.println("Campos de investigación: " + user.getIfields());
+            System.out.println("--------------------");
+        }
+        */
+    }//GEN-LAST:event_btnImprimirUsuariosActionPerformed
+
+    private void txtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfApellido1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtfApellido1ActionPerformed
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnImprimirUsuarios;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel lbEasyConference;
     private javax.swing.JLabel lbYatienesCuenta;
