@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.easyconference.domain.entities;
 
 /**
- *
- * @author Karol
+ * Clase Usuario
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class Usuario {
 
@@ -84,4 +84,14 @@ public class Usuario {
         this.Ifields = Ifields;
     }
     
+    public boolean equals(Usuario us){
+        if (this == us){
+            return true;
+        }
+        
+        return this.name.equals(us.name) && this.lastName.equals(us.lastName)
+                && this.email.equals(us.email) && this.country.equals(us.country)
+                && this.organization.equals(us.organization)  
+                && this.password.equals(us.password) && this.Ifields.equals(us.Ifields);
+    }
 }

@@ -4,36 +4,65 @@
  */
 package com.easyconference.domain.service;
 
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import com.easyconference.access.IUserService;
 
 /**
- * Acerca de los usuarios
- * String name, String lastName, String email, String password, String country, String organization, String Ifields;
+ * Esta clase contiene servivios para la clase Usuario
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class UserService{
     private IUserService repository;
-
+     /**
+     * Constructor que recibe un repositorio de usuarios.
+     *
+     * @param repository Un objeto que implementa la interfaz IUserService
+     *                   para manejar las operaciones de usuario.
+     */
     public UserService(IUserService repository) {
         this.repository = repository;
     }
-    
+       /**
+     * Registra un nuevo usuario después de validar todos los campos.
+     *
+     * @param name        El nombre del usuario.
+     * @param lastName    El apellido del usuario.
+     * @param email       El email del usuario.
+     * @param password    La contraseña del usuario.
+     * @param country     El país del usuario.
+     * @param organization La organización del usuario.
+     * @param Ifields     Otros campos adicionales requeridos.
+     * @return true si el usuario fue registrado correctamente, false en caso de error de validación.
+     */
     public boolean registerUser(String name, String lastName, String email, String password, String country, String organization, String Ifields) {
         // Validar todos los campos
         if (!validateFields(name, lastName, email, password, country, organization, Ifields)) {
             return false;
         }
-
         // Crear nuevo usuario
          Usuario newUser = new Usuario(name, lastName, email, password, country, organization, Ifields);
          repository.storeUsuario(newUser);
         // Almacenar el usuario en el repositorio
         return true;
     }
-
+    /**
+     * Valida los campos proporcionados para el registro de un usuario.
+     *
+     * @param name        El nombre del usuario.
+     * @param lastName    El apellido del usuario.
+     * @param email       El email del usuario.
+     * @param password    La contraseña del usuario.
+     * @param country     El país del usuario.
+     * @param organization La organización del usuario.
+     * @param Ifields     Otros campos adicionales requeridos.
+     * @return true si todos los campos son válidos, false en caso contrario.
+     */
     private boolean validateFields(String name, String lastName, String email, String password, String country, String organization, String Ifields) {
         if (!repository.validarNombre(name) || !repository.validarNombre(lastName)) {
             JOptionPane.showMessageDialog(null, "Nombre o apellido inválido", "Error de validación", JOptionPane.ERROR_MESSAGE);
@@ -55,13 +84,22 @@ public class UserService{
     }
 
     // Métodos adicionales si son necesarios
-    
-
+     /**
+     * Permite que un usuario inicie sesión validando su correo y contraseña.
+     *
+     * @param correo      El correo electrónico del usuario.
+     * @param contrasenia La contraseña del usuario.
+     * @return Un objeto Usuario si las credenciales son válidas, null en caso contrario.
+     */
    public Usuario login(String correo, String contrasenia){
    
        return repository.login(correo, contrasenia); 
    } 
-
+      /**
+     * Obtiene el repositorio de usuarios utilizado por este servicio.
+     *
+     * @return El repositorio de usuarios.
+     */
     public IUserService getRepository() {
         return repository;
     }

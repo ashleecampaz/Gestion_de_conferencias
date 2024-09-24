@@ -1,26 +1,28 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.easyconference.access;
 
 import com.easyconference.domain.service.IConferenceService;
-
 /**
- *
- * @author Ashlee Campaz
+ * Esta clase implementa el patrón Singleton para proporcionar una instancia única
+ * de la clase Factory, la cual se encarga de crear repositorios de conferencias.
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class Factory {
     
      private static Factory instance;
-
+      /**
+     * Constructor privado para evitar la creación de instancias adicionales.
+     */
     private Factory() {
     }
 
-    /**
-     * Clase singleton
+ /**
+     * Obliga a factory a ser singleton
      *
-     * @return
+     * @return La instancia de Factory.
      */
     public static Factory getInstance() {
 
@@ -30,18 +32,25 @@ public class Factory {
         return instance;
 
     }
-
-    
+      /**
+     * Crea un repositorio de conferencias según el tipo especificado.
+     *
+     * @param type El tipo de repositorio a crear. Puede ser "default" para
+     *             un repositorio basado en ArrayList o "list" para uno basado
+     *             en LinkedList.
+     * @return Una instancia de IConferenceService correspondiente al tipo
+     *         solicitado, o null si el tipo no es reconocido.
+     */
     public IConferenceService getRepository(String type) {
 
         IConferenceService result = null;
 
         switch (type) {
             case "default":
-                result = new ConferenciaArrayListRepository();
+                result = new ConferenceArrayListRepository();
                 break;
             case "list":
-                result = new ConferenciaLinkedListRepository();
+                result = new ConferenceLinkedListRepository();
                 break;
         }
         return result;

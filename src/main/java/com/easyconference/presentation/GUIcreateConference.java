@@ -1,19 +1,48 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
-package com.easyconference.presentation;
 
+package com.easyconference.presentation;
+import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ConferenceService;
+import com.easyconference.domain.service.UserService;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import javax.swing.JOptionPane;
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz de registro de conferencia.
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcreateConference extends javax.swing.JInternalFrame {
+        // Variable para almacenar el último mensaje de diálogo
+    private String lastDialogMessage;
+    private GUIcontainer guiContainer;
+
+    // Método para mostrar el diálogo y almacenar el mensaje
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+        lastDialogMessage = message;  // Guardar el mensaje
+    }
+
+    // Método para obtener el último mensaje
+    public String getLastDialogMessage() {
+        return lastDialogMessage;
+    }
 
     /**
      * Creates new form GUIcreateConference
      */
-    public GUIcreateConference() {
+       private ConferenceService conferenceService;
+       private Usuario usuario;
+
+    
+    public GUIcreateConference(ConferenceService con, GUIcontainer container) {
+        this.conferenceService = con;
+        this.guiContainer = container;  // Guardamos la referencia de GUIcontainer
         initComponents();
     }
 
@@ -56,14 +85,14 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         txtfDireccion = new javax.swing.JTextField();
         lbUbicacion = new javax.swing.JLabel();
         pnlBotonGuardar = new javax.swing.JPanel();
-        lbGuardar = new javax.swing.JLabel();
+        lbGuardar1 = new javax.swing.JLabel();
+        backButton = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(229, 229, 229));
         setBorder(null);
         setToolTipText("");
         setFrameIcon(null);
         setMinimumSize(new java.awt.Dimension(873, 650));
-        setOpaque(true);
         setPreferredSize(new java.awt.Dimension(873, 650));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -93,20 +122,20 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             .addGroup(pnlRepArticulosLayout.createSequentialGroup()
                 .addGap(22, 22, 22)
                 .addGroup(pnlRepArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lbRepArt)
                     .addComponent(txtfPlazoMaxRec, javax.swing.GroupLayout.PREFERRED_SIZE, 184, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlRepArticulosLayout.createSequentialGroup()
                         .addComponent(lbMaxArt)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtfMaxArt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(117, Short.MAX_VALUE))
+                        .addComponent(txtfMaxArt, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbRepArt))
+                .addContainerGap(148, Short.MAX_VALUE))
         );
         pnlRepArticulosLayout.setVerticalGroup(
             pnlRepArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlRepArticulosLayout.createSequentialGroup()
                 .addGap(18, 18, 18)
                 .addComponent(lbRepArt)
-                .addGap(18, 18, 18)
+                .addGap(20, 20, 20)
                 .addComponent(txtfPlazoMaxRec, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlRepArticulosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -348,7 +377,7 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
                 .addComponent(pnlInfoGeneral, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(pnlUbicacion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(20, 20, 20))
+                .addContainerGap())
         );
         pnlSuperiorLayout.setVerticalGroup(
             pnlSuperiorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,6 +402,9 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         pnlBotonGuardar.setBackground(new java.awt.Color(255, 255, 255));
         pnlBotonGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlBotonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlBotonGuardarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pnlBotonGuardarMouseEntered(evt);
             }
@@ -381,8 +413,8 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             }
         });
 
-        lbGuardar.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        lbGuardar.setText("Guardar");
+        lbGuardar1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        lbGuardar1.setText("Guardar");
 
         javax.swing.GroupLayout pnlBotonGuardarLayout = new javax.swing.GroupLayout(pnlBotonGuardar);
         pnlBotonGuardar.setLayout(pnlBotonGuardarLayout);
@@ -390,14 +422,14 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             pnlBotonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlBotonGuardarLayout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(lbGuardar)
+                .addComponent(lbGuardar1)
                 .addContainerGap(30, Short.MAX_VALUE))
         );
         pnlBotonGuardarLayout.setVerticalGroup(
             pnlBotonGuardarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBotonGuardarLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(lbGuardar)
+                .addComponent(lbGuardar1)
                 .addContainerGap())
         );
 
@@ -409,22 +441,149 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(16, 488, 7, 50);
         getContentPane().add(pnlBotonGuardar, gridBagConstraints);
 
+        backButton.setText("Atras");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backButtonActionPerformed(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.LAST_LINE_END;
+        getContentPane().add(backButton, gridBagConstraints);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void pnlBotonGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseExited
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pnlBotonGuardarMouseExited
+
     private void pnlBotonGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseEntered
-        lbGuardar.setFont(new java.awt.Font("Segoe UI Semilight", 1, 15));
+        // TODO add your handling code here:
     }//GEN-LAST:event_pnlBotonGuardarMouseEntered
 
-    private void pnlBotonGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseExited
-         lbGuardar.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
-    }//GEN-LAST:event_pnlBotonGuardarMouseExited
+    private void pnlBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseClicked
+    try {
+            // Recolección de los datos desde los textboxes, aplicando trim() a cada campo
+            String nombre = txtfNombre.getText().trim();
+            String temas = txtfTemas.getText().trim();
+            String entidadOrganizadora = txtfEntOrganizadora.getText().trim();
+            String fechaInicio = txtfFechaInicio.getText().trim(); // Formato: dd-MM-yyyy
+            String fechaFin = txtfFechaFin.getText().trim();       // Formato: dd-MM-yyyy
+            String plazoMaxRec = txtfPlazoMaxRec.getText().trim(); // Formato: dd-MM-yyyy
+            String maxArt = txtfMaxArt.getText().trim();
+            String plazoMaxEva = txtfPlazoMaxEva.getText().trim(); // Formato: dd-MM-yyyy
+            String maxCalAcep = txtfMaxCalAcep.getText().trim();
+            String maxArtAcep = txtfMaxArtAcep.getText().trim();
+            String pais = txtfPais.getText().trim();
+            String ciudad = txtfCiudad.getText().trim();
+            String estado = txtfEstado.getText().trim();
+            String direccion = txtfDireccion.getText().trim();
+
+            // Validación de campos vacíos
+            if (nombre.isEmpty() || temas.isEmpty() || entidadOrganizadora.isEmpty() || fechaInicio.isEmpty() || fechaFin.isEmpty() ||
+                plazoMaxRec.isEmpty() || maxArt.isEmpty() || plazoMaxEva.isEmpty() || maxCalAcep.isEmpty() || maxArtAcep.isEmpty() ||
+                pais.isEmpty() || ciudad.isEmpty() || estado.isEmpty() || direccion.isEmpty()) {
+
+                showMessage("Todos los campos deben ser completados.");
+                return;
+            }
+
+            // Verificación previa de los campos numéricos para evitar NumberFormatException
+            int numMaxArt;
+            int numMaxArtAcep;
+            float calMinima;
+
+            try {
+                numMaxArt = Integer.parseInt(maxArt); // Validar maxArt
+            } catch (NumberFormatException e) {
+                showMessage("Error: El campo 'Número máximo de artículos' debe ser un número entero.");
+                return;
+            }
+
+            try {
+                numMaxArtAcep = Integer.parseInt(maxArtAcep); // Validar maxArtAcep
+            } catch (NumberFormatException e) {
+                showMessage("Error: El campo 'Número máximo de artículos aceptados' debe ser un número entero.");
+                return;
+            }
+
+            try {
+                calMinima = Float.parseFloat(maxCalAcep); // Validar maxCalAcep
+            } catch (NumberFormatException e) {
+                showMessage("Error: El campo 'Calificación mínima' debe ser un número decimal.");
+                return;
+            }
+
+            // Formato de fecha esperado
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+            // Parseo de fechas
+            LocalDate fechaInicioLD = LocalDate.parse(fechaInicio, formatter);
+            LocalDate fechaFinLD = LocalDate.parse(fechaFin, formatter);
+            LocalDate plazoMaxRecLD = LocalDate.parse(plazoMaxRec, formatter);
+            LocalDate plazoMaxEvaLD = LocalDate.parse(plazoMaxEva, formatter);
+            LocalDate fechaActual = LocalDate.now();
+
+            // Validar fecha de inicio (debe ser al menos un mes mayor que la actual y menor a la fecha fin)
+            if (ChronoUnit.MONTHS.between(fechaActual, fechaInicioLD) < 1) {
+                showMessage("La fecha de inicio debe ser al menos un mes después de la actual.");
+                return;
+            }
+            if (fechaInicioLD.isAfter(fechaFinLD)) {
+                showMessage("La fecha de inicio debe ser antes de la fecha de fin.");
+                return;
+            }
+
+            // Validar fecha de fin (debe ser después de la fecha de inicio)
+            if (fechaFinLD.isBefore(fechaInicioLD)) {
+                showMessage("La fecha de fin debe ser después de la fecha de inicio.");
+                return;
+            }
+
+            // Validar plazo máximo de recepción de artículos (debe ser antes de la fecha de inicio)
+            if (plazoMaxRecLD.isAfter(fechaInicioLD) || plazoMaxRecLD.isBefore(fechaActual)) {
+                showMessage("La recepción de artículos debe realizarse antes de la fecha de inicio.");
+                return;
+            }
+
+            // Validar plazo máximo de evaluación de artículos (debe ser antes de la fecha de inicio)
+            if (plazoMaxEvaLD.isAfter(fechaInicioLD) || plazoMaxEvaLD.isBefore(fechaActual)) {
+                showMessage("La evaluación de artículos debe realizarse antes de la fecha de inicio.");
+                return;
+            }
+
+            // Validar número máximo de artículos aceptados (debe ser menor al número de artículos recibidos)
+            if (numMaxArtAcep >= numMaxArt) {
+                showMessage("El número de artículos aceptados debe ser menor que el número total de artículos.");
+                return;
+            }
+
+            // Si todas las validaciones pasan, crear el objeto Conference
+            Conference conferencia = new Conference(nombre, temas, entidadOrganizadora, pais, estado, ciudad, direccion, fechaInicio, fechaFin, plazoMaxEva, plazoMaxRec, numMaxArt, numMaxArtAcep, calMinima);
+
+            // Guardar la conferencia o realizar la acción que corresponda
+            conferenceService.almacenarConferencia(conferencia);
+            showMessage("Conferencia registrada exitosamente.");
+            this.dispose();
+            guiContainer.listConferences();
+        } catch (DateTimeParseException e) {
+            showMessage("Error: Formato de fecha no válido. Debe ser dd-MM-yyyy.");
+        } catch (Exception e) {
+            showMessage("Error: " + e.getMessage());
+        }
+    }//GEN-LAST:event_pnlBotonGuardarMouseClicked
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backButtonActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lbEvaArt;
-    private javax.swing.JLabel lbGuardar;
+    private javax.swing.JLabel lbGuardar1;
     private javax.swing.JLabel lbMaxArt;
     private javax.swing.JLabel lbMaxArtAcep;
     private javax.swing.JLabel lbRepArt;

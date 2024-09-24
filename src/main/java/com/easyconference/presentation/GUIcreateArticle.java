@@ -1,19 +1,19 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 
+import com.easyconference.domain.entities.Conference;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz para el envio de articulos.
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcreateArticle extends javax.swing.JInternalFrame {
-
+    private Conference conference;
     /**
      * Creates new form GUIcreateArticle
      */ 
@@ -27,7 +27,8 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         return pnlAutores;
     }
      
-    public GUIcreateArticle() {
+    public GUIcreateArticle(Conference co) {
+        this.conference=co;
         listadoAutores= new ArrayList<>();
         initComponents();
         lbAgregarAutorMouseClicked(null);
@@ -56,6 +57,7 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         lbAgregarAutor = new javax.swing.JLabel();
         pnlBtnEnviar = new javax.swing.JPanel();
         lbEnviar = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(229, 229, 229));
         setBorder(null);
@@ -177,6 +179,9 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         lbEnviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbEnviar.setText("enviar");
         lbEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbEnviarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbEnviarMouseEntered(evt);
             }
@@ -205,6 +210,14 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         gridBagConstraints.insets = new java.awt.Insets(29, 12, 0, 35);
         getContentPane().add(pnlFondoAutores, gridBagConstraints);
 
+        jButton1.setText("Atras");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new java.awt.GridBagConstraints());
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -232,6 +245,13 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
        lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
     }//GEN-LAST:event_lbEnviarMouseExited
 
+    private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbEnviarMouseClicked
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
     public void actualizarListadoAutores(){
         int i=1;
         for(pnlAutor autor: listadoAutores){
@@ -240,6 +260,7 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         }
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbAgregarAutor;
     private javax.swing.JLabel lbCrearArticulo;
     private javax.swing.JLabel lbEnviar;

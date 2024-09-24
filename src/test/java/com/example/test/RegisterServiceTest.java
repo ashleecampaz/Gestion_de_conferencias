@@ -1,24 +1,29 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.example.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.service.UserService;
-
+/**
+ * Clase de pruebas unitarias para el registro
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 public class RegisterServiceTest {
 
     private UserService registerService;
-    private ConferenciaArrayListRepository repository;
+    private ConferenceArrayListRepository repository;
 
     @BeforeEach
     public void setup() {
-        repository = new ConferenciaArrayListRepository();
+        repository = new ConferenceArrayListRepository();
         registerService = new UserService(repository);
     }
 
@@ -120,5 +125,28 @@ public class RegisterServiceTest {
 
         assertFalse(resultado, "No debería permitirse registrar un usuario con campos faltantes.");
         assertEquals(0, repository.listUsuario().size(), "No debería haber usuarios registrados.");
+    }
+    
+    @Test
+    public void testListarConferencias (){
+        ConferenceArrayListRepository objConference = new ConferenceArrayListRepository();
+        ConferenceService Services = new ConferenceService(objConference);
+        Conference conferencia = new Conference("Energia Nuclear", "Ciencia", "UNO", "USA", "ACTIVO", "MAYAMI", "EJEMPLO", "11-11-2025", "11-11-2026", "11-10-2025", "11-10-2025", 2, 1, 1);
+        Services.almacenarConferencia(conferencia);
+        int resultado = objConference.listConference().size();
+        System.out.println(""+objConference.listConference().get(0).getName());
+        assertFalse(resultado>0, "La lista se creo Exitosamente");
+        assertEquals(resultado==0, repository.listUsuario().size(), "No debería haber usuarios registrados.");
+    }
+    
+    @Test
+    public void testLogin(){
+        String correo = "example@gamil.com";
+        String contrasenia = "12345678";
+        Usuario us = new Usuario("Carla","Constain",correo,contrasenia,"colombia","unicauca","algo1,algo2");
+        repository.agregarUsuario(us); 
+        Usuario result = registerService.login(correo, contrasenia);
+        
+        assertTrue(us.equals(result), "El login fue exitosos");
     }
 }

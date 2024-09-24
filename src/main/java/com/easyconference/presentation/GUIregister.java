@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 import java.awt.Dimension;
@@ -13,11 +10,17 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import  javax.swing.JOptionPane;
 
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.UserService;
 import java.util.List;
-
+/**
+ * Interfaz registro
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 
 public class GUIregister extends javax.swing.JFrame {
 
@@ -43,7 +46,6 @@ public class GUIregister extends javax.swing.JFrame {
         String lastName = txtfApellido.getText();
         String email = txtfCorreo.getText();
         String password = new String(txtfContrasenia.getText());
-        
         String confirmPassword = new String(txtConContrasenia.getText());
         String country = txtfPais.getText();
         String organization = txtfOrganizacion.getText();
@@ -214,6 +216,11 @@ public class GUIregister extends javax.swing.JFrame {
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 10;
@@ -371,6 +378,10 @@ public class GUIregister extends javax.swing.JFrame {
     private void txtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfApellido1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfApellido1ActionPerformed
+
+    private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

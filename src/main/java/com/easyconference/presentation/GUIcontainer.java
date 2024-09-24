@@ -1,33 +1,131 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
+import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.ConferenceService;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.Box;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz contenedora 
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcontainer extends javax.swing.JFrame {
+
     private Usuario usuario;
-    private ConferenceService conferenceService; 
+    private ConferenceService conferenceService;
+
     /**
      * Creates new form GUIcontainer
      */
     public GUIcontainer(Usuario us, ConferenceService con) {
         this.usuario = us;
-        this.conferenceService = con; 
+        this.conferenceService = con;
         initComponents();
-        
+        listConferences();  
     }
 
+    @SuppressWarnings("unchecked")
+    // Método que se ejecuta cuando el usuario hace clic en "Listado de conferencias"
+    public void listConferences() {
+        pnlListadoCon.removeAll();  // Limpiamos el contenido actual del panel de conferencias
+
+        // Configuramos el layout del panel para mantener el título arriba
+        pnlListadoCon.setLayout(new BorderLayout());
+
+        // Creamos un panel para listar las conferencias con un BoxLayout para apilar verticalmente
+        JPanel panelConferencias = new JPanel();
+        panelConferencias.setLayout(new BoxLayout(panelConferencias, BoxLayout.Y_AXIS));  // Apilamos verticalmente los mini paneles
+
+        // Añadimos nuevamente el título "Listado de conferencias" en la parte superior
+        pnlListadoCon.add(lbListadoCon, BorderLayout.NORTH);
+
+        // Obtenemos todas las conferencias desde el servicio
+        List<Conference> conferences = conferenceService.listarConferencias(); 
+
+        // Por cada conferencia, creamos un mini panel con su información
+        for (Conference conference : conferences) {
+            JPanel conferencePanel = new JPanel();  // Creamos un panel para cada conferencia
+            conferencePanel.setLayout(new BorderLayout());  // Usamos BorderLayout para organizar componentes
+            conferencePanel.setPreferredSize(new Dimension(277, 30));  // Ajustamos el tamaño del panel
+            conferencePanel.setMaximumSize(new Dimension(277, 30));  // Evita que los paneles se estiren más allá de este tamaño
+
+            // Etiquetas con la información de la conferencia
+            JLabel nameLabel = new JLabel("Conferencia: " + conference.getName());  // Etiqueta con el nombre de la conferencia
+            JLabel dateLabel = new JLabel("Fecha: " + conference.getStartDate());  // Etiqueta con la fecha de la conferencia
+
+            // Botón con el símbolo "+"
+            JButton detallesButton = new JButton("+");
+            detallesButton.setPreferredSize(new Dimension(45, 40));  // Ajustamos el tamaño del botón
+            detallesButton.addActionListener(e -> {
+                // Abre la ventana GUIcreateArticle para la conferencia seleccionada
+            GUIcreateArticle createArticleView = new GUIcreateArticle(conference);  // Pasamos la conferencia al constructor
+
+            // Añadimos GUIcreateArticle al JDesktopPane
+            dskpaneContenedor.add(createArticleView);  // Agregamos la ventana al JDesktopPane
+
+            // Configuramos el JInternalFrame para que se muestre correctamente
+            createArticleView.setVisible(true);  // Hacemos visible el JInternalFrame
+            try {
+                createArticleView.setMaximum(true);  // Lo maximizamos dentro del JDesktopPane (opcional)
+            } catch (PropertyVetoException ex) {
+                ex.printStackTrace();
+            }
+        });
+
+        // Añadimos las etiquetas de información en un sub-panel
+        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));  // Usamos FlowLayout para alinear a la izquierda
+        infoPanel.add(nameLabel);
+        infoPanel.add(dateLabel);
+
+        // Añadimos las etiquetas de información en el centro del mini panel
+        conferencePanel.add(infoPanel, BorderLayout.CENTER);
+
+        // Añadimos el botón "+" en el lado derecho del mini panel
+        conferencePanel.add(detallesButton, BorderLayout.EAST);
+
+        // Añadimos el mini panel al panel de conferencias
+        panelConferencias.add(conferencePanel);
+
+        // Añadimos un espacio entre los paneles para que no se vean juntos
+        panelConferencias.add(Box.createRigidArea(new Dimension(0, 1)));
+    }
+
+
+
+    // Ahora, ponemos el panelConferencias dentro de un JScrollPane para agregar scroll si es necesario
+    JScrollPane scrollPane = new JScrollPane(panelConferencias);
+    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Barra de desplazamiento vertical cuando sea necesario
+    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);  // Deshabilitar barra horizontal
+
+    // Añadimos el JScrollPane al centro de pnlListadoCon
+    pnlListadoCon.add(scrollPane, BorderLayout.CENTER);
+
+    // Refrescamos y repintamos el panel para que los cambios se reflejen
+    pnlListadoCon.revalidate();
+    pnlListadoCon.repaint();
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -122,6 +220,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         intfInicio.getContentPane().add(pnlListadoCon, gridBagConstraints);
 
         pnlListadoAr.setBackground(new java.awt.Color(236, 236, 236));
+        pnlListadoAr.setMinimumSize(new java.awt.Dimension(145, 22));
         pnlListadoAr.setPreferredSize(new java.awt.Dimension(136, 204));
         pnlListadoAr.setLayout(new java.awt.BorderLayout());
 
@@ -173,6 +272,11 @@ public class GUIcontainer extends javax.swing.JFrame {
         intfInicio.getContentPane().add(pnlBotonCrearCon, gridBagConstraints);
 
         lbBtnBuscar.setText("buscar");
+        lbBtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbBtnBuscarMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -214,23 +318,21 @@ public class GUIcontainer extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCrearConMouseExited
 
     private void lbCrearConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCrearConMouseClicked
-        GUIcreateConference crearConferencia = new GUIcreateConference();
-        GUIcreateArticle crearAriticulo = new GUIcreateArticle();
+        GUIcreateConference crearConferencia = new GUIcreateConference(conferenceService, this);
         try {
-            //crearConferencia.setMaximum(true);
-            crearAriticulo.setMaximum(true);
+            crearConferencia.setMaximum(true);
         } catch (PropertyVetoException ex) {
             Logger.getLogger(GUIcontainer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        dskpaneContenedor.add(crearAriticulo, java.awt.BorderLayout.CENTER);
-        //dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
-        intfInicio.setVisible(false);
-        crearAriticulo.setVisible(true);
-        //crearConferencia.setVisible(true);
-        
+
+        dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
+        crearConferencia.setVisible(true);
     }//GEN-LAST:event_lbCrearConMouseClicked
 
-  
+    private void lbBtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBtnBuscarMouseClicked
+        
+    }//GEN-LAST:event_lbBtnBuscarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskpaneContenedor;

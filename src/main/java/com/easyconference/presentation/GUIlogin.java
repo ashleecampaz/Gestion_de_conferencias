@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 import com.easyconference.domain.entities.Usuario;
@@ -13,8 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
 
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz Login
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIlogin extends javax.swing.JFrame {
 
