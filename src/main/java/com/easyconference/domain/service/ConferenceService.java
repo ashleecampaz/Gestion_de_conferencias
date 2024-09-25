@@ -8,11 +8,11 @@ public class ConferenceService {
     private IConferenceService referenceRepositoryConferency;
     
     //puedo enviar objetos que pertenecen a clases que implementan la interface
-    public ConferenceService(IConferenceService referenciaRepositorioConferencias)
-    {
-        this.referenceRepositoryConferency=referenceRepositoryConferency;
+
+    public ConferenceService(IConferenceService referenceRepositoryConferency) {
+        this.referenceRepositoryConferency = referenceRepositoryConferency;
     }
-    
+ 
     public boolean almacenarConferencia(Conference objConfererence) {
         boolean bandera=this.referenceRepositoryConferency.storeConference(objConfererence);
         return bandera;

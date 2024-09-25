@@ -1,20 +1,43 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
-package com.easyconference.presentation;
 
+package com.easyconference.presentation;
+import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.service.ConferenceService;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.temporal.ChronoUnit;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Ashlee Campaz
  */
 public class GUIcreateConference extends javax.swing.JInternalFrame {
+        // Variable para almacenar el último mensaje de diálogo
+    private String lastDialogMessage;
+
+    // Método para mostrar el diálogo y almacenar el mensaje
+    public void showMessage(String message) {
+        JOptionPane.showMessageDialog(null, message);
+        lastDialogMessage = message;  // Guardar el mensaje
+    }
+
+    // Método para obtener el último mensaje
+    public String getLastDialogMessage() {
+        return lastDialogMessage;
+    }
 
     /**
      * Creates new form GUIcreateConference
      */
+       private ConferenceService registerConference;
+    
+
+    
     public GUIcreateConference() {
         initComponents();
+      
+       
     }
 
     /**
@@ -63,7 +86,6 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         setToolTipText("");
         setFrameIcon(null);
         setMinimumSize(new java.awt.Dimension(873, 650));
-        setOpaque(true);
         setPreferredSize(new java.awt.Dimension(873, 650));
         getContentPane().setLayout(new java.awt.GridBagLayout());
 
@@ -373,6 +395,9 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         pnlBotonGuardar.setBackground(new java.awt.Color(255, 255, 255));
         pnlBotonGuardar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         pnlBotonGuardar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                pnlBotonGuardarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 pnlBotonGuardarMouseEntered(evt);
             }
@@ -419,6 +444,97 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
     private void pnlBotonGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseExited
          lbGuardar.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
     }//GEN-LAST:event_pnlBotonGuardarMouseExited
+
+    private void pnlBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseClicked
+      try {
+        // Recolección de los datos desde los textboxes
+        String nombre = txtfNombre.getText();
+        String temas = txtfTemas.getText();
+        String entidadOrganizadora = txtfEntOrganizadora.getText();
+        String fechaInicio = txtfFechaInicio.getText(); // Formato: dd-MM-yyyy
+        String fechaFin = txtfFechaFin.getText();       // Formato: dd-MM-yyyy
+        String plazoMaxRec = txtfPlazoMaxRec.getText(); // Formato: dd-MM-yyyy
+        String maxArt = txtfMaxArt.getText();
+        String plazoMaxEva = txtfPlazoMaxEva.getText(); // Formato: dd-MM-yyyy
+        String maxCalAcep = txtfMaxCalAcep.getText();
+        String maxArtAcep = txtfMaxArtAcep.getText();
+        String pais = txtfPais.getText();
+        String ciudad = txtfCiudad.getText();
+        String estado = txtfEstado.getText();
+        String direccion = txtfDireccion.getText();
+
+        // Validación de campos vacíos
+        if (nombre.isEmpty() || temas.isEmpty() || entidadOrganizadora.isEmpty() || fechaInicio.isEmpty() || fechaFin.isEmpty() ||
+            plazoMaxRec.isEmpty() || maxArt.isEmpty() || plazoMaxEva.isEmpty() || maxCalAcep.isEmpty() || maxArtAcep.isEmpty() ||
+            pais.isEmpty() || ciudad.isEmpty() || estado.isEmpty() || direccion.isEmpty()) {
+            
+            showMessage("Todos los campos deben ser completados.");
+            return;
+        }
+
+        // Formato de fecha esperado
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        // Parseo de fechas
+        LocalDate fechaInicioLD = LocalDate.parse(fechaInicio, formatter);
+        LocalDate fechaFinLD = LocalDate.parse(fechaFin, formatter);
+        LocalDate plazoMaxRecLD = LocalDate.parse(plazoMaxRec, formatter);
+        LocalDate plazoMaxEvaLD = LocalDate.parse(plazoMaxEva, formatter);
+        LocalDate fechaActual = LocalDate.now();
+
+        // Validar fecha de inicio (debe ser al menos un mes mayor que la actual y menor a la fecha fin)
+        if (ChronoUnit.MONTHS.between(fechaActual, fechaInicioLD) < 1) {
+            showMessage("La fecha de inicio debe ser al menos un mes después de la actual.");
+            return;
+        }
+        if (fechaInicioLD.isAfter(fechaFinLD)) {
+            showMessage("La fecha de inicio debe ser antes de la fecha de fin.");
+            return;
+        }
+
+        // Validar fecha de fin (debe ser después de la fecha de inicio)
+        if (fechaFinLD.isBefore(fechaInicioLD)) {
+            showMessage("La fecha de fin debe ser después de la fecha de inicio.");
+            return;
+        }
+
+        // Validar plazo máximo de recepción de artículos (debe ser antes de la fecha de inicio)
+        if (plazoMaxRecLD.isAfter(fechaInicioLD) || plazoMaxRecLD.isBefore(fechaActual)) {
+            showMessage("La recepción de artículos debe realizarse antes de la fecha de inicio.");
+            return;
+        }
+
+        // Validar plazo máximo de evaluación de artículos (debe ser antes de la fecha de inicio)
+        if (plazoMaxEvaLD.isAfter(fechaInicioLD) || plazoMaxEvaLD.isBefore(fechaActual)) {
+            showMessage("La evaluación de artículos debe realizarse antes de la fecha de inicio.");
+            return;
+        }
+
+        // Validar número máximo de artículos aceptados (debe ser menor al número de artículos recibidos)
+        int numMaxArt = Integer.parseInt(maxArt);
+        int numMaxArtAcep = Integer.parseInt(maxArtAcep);
+        if (numMaxArtAcep >= numMaxArt) {
+            showMessage("El número de artículos aceptados debe ser menor que el número total de artículos.");
+            return;
+        }
+
+        // Si todas las validaciones pasan, crear el objeto Conference
+        float calMinima = Float.parseFloat(maxCalAcep);
+        Conference conferencia = new Conference(nombre, temas, entidadOrganizadora, pais, estado, ciudad, direccion, fechaInicio, fechaFin, plazoMaxEva, plazoMaxRec, numMaxArt, numMaxArtAcep, calMinima);
+
+        // Guardar la conferencia o realizar la acción que corresponda
+        registerConference.almacenarConferencia(conferencia);
+        showMessage("Conferencia registrada exitosamente.");
+    
+    } catch (DateTimeParseException e) {
+        showMessage("Error: Formato de fecha no válido. Debe ser dd-MM-yyyy.");
+    } catch (NumberFormatException e) {
+        showMessage("Error: Asegúrese de que los campos numéricos tengan valores válidos.");
+    } catch (Exception e) {
+        showMessage("Error: " + e.getMessage());
+    }
+
+    }//GEN-LAST:event_pnlBotonGuardarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -213,6 +213,11 @@ public class GUIregister extends javax.swing.JFrame {
 
         btnRegistrar.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         btnRegistrar.setText("Registrar");
+        btnRegistrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnRegistrarMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 5;
         gridBagConstraints.gridy = 10;
@@ -370,6 +375,10 @@ public class GUIregister extends javax.swing.JFrame {
     private void txtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfApellido1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtfApellido1ActionPerformed
+
+    private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegistrarMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

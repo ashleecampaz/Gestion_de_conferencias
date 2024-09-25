@@ -26,14 +26,13 @@ public class UserService{
         if (!validateFields(name, lastName, email, password, country, organization, Ifields)) {
             return false;
         }
-
         // Crear nuevo usuario
          Usuario newUser = new Usuario(name, lastName, email, password, country, organization, Ifields);
          repository.storeUsuario(newUser);
         // Almacenar el usuario en el repositorio
         return true;
     }
-
+    
     private boolean validateFields(String name, String lastName, String email, String password, String country, String organization, String Ifields) {
         if (!repository.validarNombre(name) || !repository.validarNombre(lastName)) {
             JOptionPane.showMessageDialog(null, "Nombre o apellido inválido", "Error de validación", JOptionPane.ERROR_MESSAGE);

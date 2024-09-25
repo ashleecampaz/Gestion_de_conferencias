@@ -177,6 +177,9 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         lbEnviar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lbEnviar.setText("enviar");
         lbEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbEnviarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 lbEnviarMouseEntered(evt);
             }
@@ -231,6 +234,10 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
     private void lbEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseExited
        lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
     }//GEN-LAST:event_lbEnviarMouseExited
+
+    private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_lbEnviarMouseClicked
 
     public void actualizarListadoAutores(){
         int i=1;
