@@ -1,6 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- */
 
 package com.easyconference.gestion_conferencias;
 
@@ -12,8 +9,11 @@ import com.easyconference.presentation.GUIregister;
 import com.easyconference.access.IUserService;
 
 /**
- *
- * @author Ashlee Campaz
+ * Esta es la clase principal
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class Gestion_conferencias {
 
