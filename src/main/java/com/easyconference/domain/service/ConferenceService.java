@@ -1,7 +1,13 @@
 package com.easyconference.domain.service;
 import java.util.List;
 import com.easyconference.domain.entities.Conference;
-
+/**
+ * Esta clase contiene los metodos de la clase conferencia, especialmente de almacenamiento y listado
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 
 public class ConferenceService {
     

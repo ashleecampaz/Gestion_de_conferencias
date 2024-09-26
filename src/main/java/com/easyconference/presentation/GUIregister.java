@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 import java.awt.Dimension;
@@ -17,7 +14,13 @@ import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.UserService;
 import java.util.List;
-
+/**
+ * Interfaz registro
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 
 public class GUIregister extends javax.swing.JFrame {
 

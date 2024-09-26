@@ -1,17 +1,16 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JInternalFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 
 import com.easyconference.domain.entities.Conference;
 import java.util.ArrayList;
 import javax.swing.JPanel;
-
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz para el envio de articulos.
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcreateArticle extends javax.swing.JInternalFrame {
     private Conference conference;

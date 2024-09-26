@@ -1,13 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
+
 package com.easyconference.access;
 import com.easyconference.domain.entities.Usuario;
 import java.util.List;
 /**
- *
- * @author Karol
+ * Esta Interfaz contiene metodos para el manejo de usuarios en el login
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public interface IUserService {
     void storeUsuario(Usuario usuario);

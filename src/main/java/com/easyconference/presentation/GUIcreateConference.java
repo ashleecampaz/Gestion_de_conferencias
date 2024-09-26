@@ -11,8 +11,11 @@ import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
 import javax.swing.JOptionPane;
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz de registro de conferencia.
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcreateConference extends javax.swing.JInternalFrame {
         // Variable para almacenar el último mensaje de diálogo

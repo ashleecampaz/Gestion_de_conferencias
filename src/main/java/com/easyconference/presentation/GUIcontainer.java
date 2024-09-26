@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
- */
+
 package com.easyconference.presentation;
 
 import com.easyconference.domain.entities.Conference;
@@ -28,8 +25,11 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 /**
- *
- * @author Ashlee Campaz
+ * Interfaz contenedora 
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class GUIcontainer extends javax.swing.JFrame {
 

@@ -1,12 +1,12 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.easyconference.domain.entities;
 
 /**
- *
- * @author Karol
+ * Clase Usuario
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
  */
 public class Usuario {
 

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.example.test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,7 +8,13 @@ import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.service.UserService;
-
+/**
+ * Clase de pruebas unitarias para el registro
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 public class RegisterServiceTest {
 
     private UserService registerService;

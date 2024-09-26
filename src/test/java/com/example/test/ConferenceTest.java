@@ -5,7 +5,13 @@ import org.junit.jupiter.api.Test;
 import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.access.ConferenceLinkedListRepository;
-
+/**
+ * Clase e pruebas unitarias para conferencia 
+ * 
+ * @author 
+ * @version 1.0
+ * @since 2024
+ */
 public class ConferenceTest {
 
     private ConferenceService conferenceService;
