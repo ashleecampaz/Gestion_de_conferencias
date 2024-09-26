@@ -46,7 +46,7 @@ class ConferenceTest {
         ConferenceArrayListRepository r = new ConferenceArrayListRepository();
         Usuario u = new Usuario("Test", "Test", "Test", "Test", "Test", "Test", "Test");
         ConferenceService c = new ConferenceService(r);
-        conferenceForm = new GUIcreateConference(c,u);
+        conferenceForm = new GUIcreateConference(c,null);
     }
 
     @Test
