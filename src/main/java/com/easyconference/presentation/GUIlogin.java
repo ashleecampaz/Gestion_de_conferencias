@@ -1,8 +1,11 @@
 
 package com.easyconference.presentation;
 
+import com.easyconference.access.ArticuloArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ArticuloService;
 import com.easyconference.domain.service.ConferenceService;
+import com.easyconference.domain.service.IArticuloService;
 import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.service.UserService;
 import java.awt.Dimension;
@@ -21,16 +24,17 @@ public class GUIlogin extends javax.swing.JFrame {
     /**
      * Creates new form login
      */
-    private UserService userService; 
-    
+    private UserService userService;
+
     public GUIlogin(UserService userService) {
         this.userService = userService;
         initComponents();
-        
+
     }
+
     public GUIlogin() {
         initComponents();
-        
+
     }
 
     /**
@@ -204,20 +208,19 @@ public class GUIlogin extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbbtnVizualizarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbbtnVizualizarMouseClicked
-       if(pswfContrasenia.getEchoChar()==0){
-           pswfContrasenia.setEchoChar('•');
-       } 
-      else{
-        pswfContrasenia.setEchoChar((char)0);
-       }
+        if (pswfContrasenia.getEchoChar() == 0) {
+            pswfContrasenia.setEchoChar('•');
+        } else {
+            pswfContrasenia.setEchoChar((char) 0);
+        }
     }//GEN-LAST:event_lbbtnVizualizarMouseClicked
 
     private void lbNotienesCuentaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNotienesCuentaMouseEntered
-       lbNotienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 1, 14));
+        lbNotienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 1, 14));
     }//GEN-LAST:event_lbNotienesCuentaMouseEntered
 
     private void lbNotienesCuentaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNotienesCuentaMouseExited
-       lbNotienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
+        lbNotienesCuenta.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
     }//GEN-LAST:event_lbNotienesCuentaMouseExited
 
     private void lbNotienesCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbNotienesCuentaMouseClicked
@@ -227,21 +230,25 @@ public class GUIlogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lbNotienesCuentaMouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
-       Usuario us = userService.login(txtfCorreo.getText(),new String( pswfContrasenia.getPassword()));
-        if(us!=null){
+        Usuario us = userService.login(txtfCorreo.getText(), new String(pswfContrasenia.getPassword()));
+        if (us != null) {
             this.dispose();
-            
-            ConferenceService conferenceService = new ConferenceService((IConferenceService)userService.getRepository());
-            GUIcontainer inicio = new GUIcontainer(us,conferenceService);
+
+            // Crear instancia de ConferenceService
+            ConferenceService conferenceService = new ConferenceService((IConferenceService) userService.getRepository());
+
+            // Crear instancia de ArticuloService usando un repositorio concreto
+            IArticuloService articuloRepo = new ArticuloArrayListRepository(); // O la implementación que uses
+            ArticuloService articuloService = new ArticuloService(articuloRepo);
+
+            // Pasar Usuario, ConferenceService y ArticuloService al constructor de GUIcontainer
+            GUIcontainer inicio = new GUIcontainer(us, conferenceService, articuloService);
             inicio.setVisible(true);
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Información", JOptionPane.INFORMATION_MESSAGE);
         }
-        
     }//GEN-LAST:event_btnIngresarActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;

@@ -1,11 +1,16 @@
 
 package com.easyconference.presentation;
 
-
+import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.service.ArticuloService;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 /**
+ *
+ * @author Ashlee Campaz
+ * @author sonhuila
+ *
  * Interfaz para el envio de articulos.
  * 
  * @author 
@@ -13,11 +18,15 @@ import javax.swing.JPanel;
  * @since 2024
  */
 public class GUIcreateArticle extends javax.swing.JInternalFrame {
+    
     private Conference conference;
+    private ArticuloService objServicioArticulos;
+    private String lastDialogMessage;
+    private GUIcontainer parentContainer; // Referencia al contenedor principal
     /**
      * Creates new form GUIcreateArticle
-     */ 
-    private ArrayList<pnlAutor>  listadoAutores;
+     */
+    private ArrayList<pnlAutor> listadoAutores;
 
     public ArrayList<pnlAutor> getListadoAutores() {
         return listadoAutores;
@@ -26,10 +35,12 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
     public JPanel getPnlAutores() {
         return pnlAutores;
     }
-     
-    public GUIcreateArticle(Conference co) {
-        this.conference=co;
-        listadoAutores= new ArrayList<>();
+
+    public GUIcreateArticle(ArticuloService as,Conference co, GUIcontainer parentContainer) {
+        this.objServicioArticulos = as;
+        this.conference = co;
+        listadoAutores = new ArrayList<>();
+        this.parentContainer = parentContainer;
         initComponents();
         lbAgregarAutorMouseClicked(null);
         lbAgregarAutorMouseClicked(null);
@@ -223,10 +234,15 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
 
     private void lbAgregarAutorMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAgregarAutorMouseClicked
         // TODO add your handling code here:
-        pnlAutor nuevoAutor = new pnlAutor(listadoAutores.size() +1);
+        pnlAutor nuevoAutor = new pnlAutor(listadoAutores.size() + 1);
         listadoAutores.add(nuevoAutor);
         pnlAutores.add(nuevoAutor);
-        
+        pnlAutores.revalidate();
+        pnlAutores.repaint();
+
+        // Actualizar el listado de autores
+        actualizarListadoAutores();
+
     }//GEN-LAST:event_lbAgregarAutorMouseClicked
 
     private void lbAgregarAutorMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbAgregarAutorMouseEntered
@@ -238,27 +254,111 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_lbAgregarAutorMouseExited
 
     private void lbEnviarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseEntered
-       lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 15)); // NOI18N
+        lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 1, 15)); // NOI18N
     }//GEN-LAST:event_lbEnviarMouseEntered
 
     private void lbEnviarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseExited
-       lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
+        lbEnviar.setFont(new java.awt.Font("Segoe UI Semibold", 0, 14)); // NOI18N
     }//GEN-LAST:event_lbEnviarMouseExited
 
     private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
-        // TODO add your handling code here:
+        if (validarCampos()) {
+            String nombre = this.txtfTitulo.getText().trim();
+            String resumen = this.txtaResumen.getText().trim();
+            String palabrasClaves = this.txtfPalabrasClaves.getText().trim();
+
+            ArrayList<String> nombresAutores = new ArrayList<>();
+            for (pnlAutor pnlAutor : listadoAutores) {
+                String nombreAutor = pnlAutor.getTxtfNombre().getText().trim();
+                if (!nombreAutor.isEmpty()) {
+                    nombresAutores.add(nombreAutor);
+                }
+            }
+
+            try {
+                Articulo articulo = new Articulo(nombre, nombresAutores, resumen, palabrasClaves);
+                // Llama al servicio para guardar el artículo
+                boolean exito = objServicioArticulos.almacenarArticulo(articulo);
+
+                if (exito) {
+                    mostrarMensajeExito("Artículo enviado exitosamente.");
+                    parentContainer.listArticles();
+                    this.dispose();
+                } else {
+                    mostrarMensajeError("No se pudo registrar el artículo.");
+                }
+            } catch (IllegalArgumentException e) {
+                mostrarMensajeAdvertencia("Datos del artículo inválidos: " + e.getMessage());
+            } catch (Exception e) {
+                mostrarMensajeError("Se ha producido un error inesperado: " + e.getMessage());
+            } finally {
+                limpiarCampos();
+            }
+        }
     }//GEN-LAST:event_lbEnviarMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
-    public void actualizarListadoAutores(){
-        int i=1;
-        for(pnlAutor autor: listadoAutores){
-            autor.getLbAutor().setText("Autor " + i );
+
+    private boolean validarCampos() {
+        if (txtfTitulo.getText().trim().isEmpty()) {
+            mostrarMensajeError("El título es obligatorio.");
+            return false;
+        }
+        if (txtaResumen.getText().trim().isEmpty()) {
+            mostrarMensajeError("El resumen es obligatorio.");
+            return false;
+        }
+        if (txtfPalabrasClaves.getText().trim().isEmpty()) {
+            mostrarMensajeError("Las palabras clave son obligatorias.");
+            return false;
+        }
+        if (listadoAutores.isEmpty()) {
+            mostrarMensajeError("Debe agregar al menos un autor.");
+            return false;
+        }
+        return true;
+    }
+    
+    private void mostrarMensajeExito(String mensaje) {
+        lastDialogMessage = mensaje;// Actualiza el mensaje
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Éxito", javax.swing.JOptionPane.INFORMATION_MESSAGE);
+    }
+    
+    private void mostrarMensajeError(String mensaje) {
+        lastDialogMessage = mensaje;// Actualiza el mensaje
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Error", javax.swing.JOptionPane.ERROR_MESSAGE);
+    }
+
+    private void mostrarMensajeAdvertencia(String mensaje) {
+        lastDialogMessage = mensaje;// Actualiza el mensaje
+        javax.swing.JOptionPane.showMessageDialog(this, mensaje, "Advertencia", javax.swing.JOptionPane.WARNING_MESSAGE);
+    }
+
+    public String getLastDialogMessage() {
+        return lastDialogMessage;
+    }
+
+    public void actualizarListadoAutores() {
+        int i = 1;
+        for (pnlAutor autor : listadoAutores) {
+            autor.getLbAutor().setText("Autor " + i);
             i++;
         }
     }
+
+    private void limpiarCampos() {
+        txtfTitulo.setText("");
+        txtaResumen.setText("");
+        txtfPalabrasClaves.setText("");
+        pnlAutores.removeAll();
+        listadoAutores.clear();
+        lbAgregarAutorMouseClicked(null); // Añade al menos un autor por defecto
+        pnlAutores.revalidate();
+        pnlAutores.repaint();
+    }
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel lbAgregarAutor;

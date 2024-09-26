@@ -1,8 +1,10 @@
 
 package com.easyconference.presentation;
 
+import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ArticuloService;
 import com.easyconference.domain.service.ConferenceService;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -35,15 +37,18 @@ public class GUIcontainer extends javax.swing.JFrame {
 
     private Usuario usuario;
     private ConferenceService conferenceService;
+    private ArticuloService articuloService;
 
     /**
      * Creates new form GUIcontainer
      */
-    public GUIcontainer(Usuario us, ConferenceService con) {
+    public GUIcontainer(Usuario us, ConferenceService con, ArticuloService artService) {
         this.usuario = us;
         this.conferenceService = con;
+        this.articuloService = artService;
         initComponents();
-        listConferences();  
+        listConferences();
+        listArticles();
     }
 
     @SuppressWarnings("unchecked")
@@ -62,7 +67,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         pnlListadoCon.add(lbListadoCon, BorderLayout.NORTH);
 
         // Obtenemos todas las conferencias desde el servicio
-        List<Conference> conferences = conferenceService.listarConferencias(); 
+        List<Conference> conferences = conferenceService.listarConferencias();
 
         // Por cada conferencia, creamos un mini panel con su información
         for (Conference conference : conferences) {
@@ -80,52 +85,104 @@ public class GUIcontainer extends javax.swing.JFrame {
             detallesButton.setPreferredSize(new Dimension(45, 40));  // Ajustamos el tamaño del botón
             detallesButton.addActionListener(e -> {
                 // Abre la ventana GUIcreateArticle para la conferencia seleccionada
-            GUIcreateArticle createArticleView = new GUIcreateArticle(conference);  // Pasamos la conferencia al constructor
+                GUIcreateArticle createArticleView = new GUIcreateArticle(articuloService, conference,this);  // Pasamos ArticuloService y Conference al constructor
 
-            // Añadimos GUIcreateArticle al JDesktopPane
-            dskpaneContenedor.add(createArticleView);  // Agregamos la ventana al JDesktopPane
+                // Añadimos GUIcreateArticle al JDesktopPane
+                dskpaneContenedor.add(createArticleView);  // Agregamos la ventana al JDesktopPane
 
-            // Configuramos el JInternalFrame para que se muestre correctamente
-            createArticleView.setVisible(true);  // Hacemos visible el JInternalFrame
-            try {
-                createArticleView.setMaximum(true);  // Lo maximizamos dentro del JDesktopPane (opcional)
-            } catch (PropertyVetoException ex) {
-                ex.printStackTrace();
-            }
-        });
+                // Configuramos el JInternalFrame para que se muestre correctamente
+                createArticleView.setVisible(true);  // Hacemos visible el JInternalFrame
+                try {
+                    createArticleView.setMaximum(true);  // Lo maximizamos dentro del JDesktopPane (opcional)
+                } catch (PropertyVetoException ex) {
+                    ex.printStackTrace();
+                }
+                // Actualizamos la lista de artículos después de abrir la ventana de creación de artículo
+                listArticles();
+            });
 
-        // Añadimos las etiquetas de información en un sub-panel
-        JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));  // Usamos FlowLayout para alinear a la izquierda
-        infoPanel.add(nameLabel);
-        infoPanel.add(dateLabel);
+            // Añadimos las etiquetas de información en un sub-panel
+            JPanel infoPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));  // Usamos FlowLayout para alinear a la izquierda
+            infoPanel.add(nameLabel);
+            infoPanel.add(dateLabel);
 
-        // Añadimos las etiquetas de información en el centro del mini panel
-        conferencePanel.add(infoPanel, BorderLayout.CENTER);
+            // Añadimos las etiquetas de información en el centro del mini panel
+            conferencePanel.add(infoPanel, BorderLayout.CENTER);
 
-        // Añadimos el botón "+" en el lado derecho del mini panel
-        conferencePanel.add(detallesButton, BorderLayout.EAST);
+            // Añadimos el botón "+" en el lado derecho del mini panel
+            conferencePanel.add(detallesButton, BorderLayout.EAST);
 
-        // Añadimos el mini panel al panel de conferencias
-        panelConferencias.add(conferencePanel);
+            // Añadimos el mini panel al panel de conferencias
+            panelConferencias.add(conferencePanel);
 
-        // Añadimos un espacio entre los paneles para que no se vean juntos
-        panelConferencias.add(Box.createRigidArea(new Dimension(0, 1)));
+            // Añadimos un espacio entre los paneles para que no se vean juntos
+            panelConferencias.add(Box.createRigidArea(new Dimension(0, 1)));
+        }
+
+        // Ahora, ponemos el panelConferencias dentro de un JScrollPane para agregar scroll si es necesario
+        JScrollPane scrollPane = new JScrollPane(panelConferencias);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Barra de desplazamiento vertical cuando sea necesario
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);  // Deshabilitar barra horizontal
+
+        // Añadimos el JScrollPane al centro de pnlListadoCon
+        pnlListadoCon.add(scrollPane, BorderLayout.CENTER);
+
+        // Refrescamos y repintamos el panel para que los cambios se reflejen
+        pnlListadoCon.revalidate();
+        pnlListadoCon.repaint();
     }
 
+    // Método para listar los artículos del usuario
+    @SuppressWarnings("unchecked")
+    public void listArticles() {
+        pnlListadoAr.removeAll();  // Limpiamos el contenido actual del panel de artículos
 
+        // Configuramos el layout del panel para mantener el título arriba
+        pnlListadoAr.setLayout(new BorderLayout());
 
-    // Ahora, ponemos el panelConferencias dentro de un JScrollPane para agregar scroll si es necesario
-    JScrollPane scrollPane = new JScrollPane(panelConferencias);
-    scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Barra de desplazamiento vertical cuando sea necesario
-    scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);  // Deshabilitar barra horizontal
+        // Creamos un panel para listar los artículos con un BoxLayout para apilar verticalmente
+        JPanel panelArticulos = new JPanel();
+        panelArticulos.setLayout(new BoxLayout(panelArticulos, BoxLayout.Y_AXIS));  // Apilamos verticalmente los mini paneles
 
-    // Añadimos el JScrollPane al centro de pnlListadoCon
-    pnlListadoCon.add(scrollPane, BorderLayout.CENTER);
+        // Añadimos nuevamente el título "Listado de artículos" en la parte superior
+        pnlListadoAr.add(lbListadoAr, BorderLayout.NORTH);
 
-    // Refrescamos y repintamos el panel para que los cambios se reflejen
-    pnlListadoCon.revalidate();
-    pnlListadoCon.repaint();
-}
+        // Obtenemos todos los artículos desde el servicio
+        List<Articulo> articulos = articuloService.listarArticulos();
+
+        // Por cada artículo, creamos un mini panel con su información
+        for (Articulo articulo : articulos) {
+            JPanel articuloPanel = new JPanel();  // Creamos un panel para cada artículo
+            articuloPanel.setLayout(new BorderLayout());  // Usamos BorderLayout para organizar componentes
+            articuloPanel.setPreferredSize(new Dimension(277, 30));  // Ajustamos el tamaño del panel
+            articuloPanel.setMaximumSize(new Dimension(277, 30));  // Evita que los paneles se estiren más allá de este tamaño
+
+            // Etiqueta con el nombre del artículo
+            JLabel nameLabel = new JLabel("Artículo: " + articulo.getNombre());  // Mostramos el título del artículo
+
+            // Añadimos la etiqueta de información en el centro del mini panel
+            articuloPanel.add(nameLabel, BorderLayout.CENTER);
+
+            // Añadimos el mini panel al panel de artículos
+            panelArticulos.add(articuloPanel);
+
+            // Añadimos un espacio entre los paneles para que no se vean juntos
+            panelArticulos.add(Box.createRigidArea(new Dimension(0, 1)));
+        }
+
+        // Ahora, ponemos el panelArticulos dentro de un JScrollPane para agregar scroll si es necesario
+        JScrollPane scrollPane = new JScrollPane(panelArticulos);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED);  // Barra de desplazamiento vertical cuando sea necesario
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);  // Deshabilitar barra horizontal
+
+        // Añadimos el JScrollPane al centro de pnlListadoAr
+        pnlListadoAr.add(scrollPane, BorderLayout.CENTER);
+
+        // Refrescamos y repintamos el panel para que los cambios se reflejen
+        pnlListadoAr.revalidate();
+        pnlListadoAr.repaint();
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -330,7 +387,7 @@ public class GUIcontainer extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCrearConMouseClicked
 
     private void lbBtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBtnBuscarMouseClicked
-        
+
     }//GEN-LAST:event_lbBtnBuscarMouseClicked
 
 

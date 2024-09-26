@@ -1,6 +1,7 @@
 
 package com.easyconference.access;
 
+import com.easyconference.domain.service.IArticuloService;
 import com.easyconference.domain.service.IConferenceService;
 /**
  * Esta clase implementa el patrón Singleton para proporcionar una instancia única
@@ -51,6 +52,21 @@ public class Factory {
                 break;
             case "list":
                 result = new ConferenceLinkedListRepository();
+                break;
+        }
+        return result;
+    }
+    
+    public IArticuloService getArticuloRepository(String type) {
+
+        IArticuloService result = null;
+
+        switch (type) {
+            case "default":
+                result = new ArticuloArrayListRepository();
+                break;
+            case "list":
+                result = new ArticuloLinkedListRepository();
                 break;
         }
         return result;
