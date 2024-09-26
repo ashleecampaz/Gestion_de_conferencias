@@ -57,6 +57,7 @@ public class GUIlogin extends javax.swing.JFrame {
         btnIngresar = new javax.swing.JButton();
         lbbtnVizualizar = new javax.swing.JLabel();
         lbNotienesCuenta = new javax.swing.JLabel();
+        lbCamposVacios = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(255, 255, 255));
@@ -87,6 +88,11 @@ public class GUIlogin extends javax.swing.JFrame {
         txtfCorreo.setForeground(new java.awt.Color(102, 102, 102));
         txtfCorreo.setText("Ingrese su correo");
         txtfCorreo.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Correo electronico", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        txtfCorreo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                txtfCorreoMousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 1;
@@ -97,9 +103,14 @@ public class GUIlogin extends javax.swing.JFrame {
 
         pswfContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         pswfContrasenia.setForeground(new java.awt.Color(102, 102, 102));
-        pswfContrasenia.setText("jPasswordField1");
+        pswfContrasenia.setText(".......");
         pswfContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
         pswfContrasenia.setCaretColor(new java.awt.Color(102, 102, 102));
+        pswfContrasenia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                pswfContraseniaMousePressed(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -130,7 +141,7 @@ public class GUIlogin extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 2;
-        gridBagConstraints.gridy = 4;
+        gridBagConstraints.gridy = 5;
         gridBagConstraints.gridwidth = 70;
         gridBagConstraints.fill = java.awt.GridBagConstraints.VERTICAL;
         gridBagConstraints.ipadx = 6;
@@ -167,12 +178,23 @@ public class GUIlogin extends javax.swing.JFrame {
         });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridy = 4;
         gridBagConstraints.gridwidth = 70;
         gridBagConstraints.ipadx = 6;
         gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
         gridBagConstraints.insets = new java.awt.Insets(0, 0, 13, 0);
         pnlInicio.add(lbNotienesCuenta, gridBagConstraints);
+
+        lbCamposVacios.setFont(new java.awt.Font("Segoe UI Semilight", 0, 12)); // NOI18N
+        lbCamposVacios.setForeground(new java.awt.Color(255, 51, 51));
+        lbCamposVacios.setText("No debe haber campos vacios");
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 3;
+        gridBagConstraints.gridwidth = 70;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.WEST;
+        pnlInicio.add(lbCamposVacios, gridBagConstraints);
+        lbCamposVacios.setVisible(false);
 
         SpringLayout centrador = new SpringLayout();
         centrador.putConstraint(SpringLayout.HORIZONTAL_CENTER, pnlInicio, 0, SpringLayout.HORIZONTAL_CENTER, pnlFondo);
@@ -230,6 +252,10 @@ public class GUIlogin extends javax.swing.JFrame {
     }//GEN-LAST:event_lbNotienesCuentaMouseClicked
 
     private void btnIngresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIngresarActionPerformed
+       if(txtfCorreo.getText().isBlank() || String.valueOf(pswfContrasenia.getPassword()).isBlank()){
+            lbCamposVacios.setVisible(true);
+            return;
+       }
         Usuario us = userService.login(txtfCorreo.getText(), new String(pswfContrasenia.getPassword()));
         if (us != null) {
             this.dispose();
@@ -249,9 +275,22 @@ public class GUIlogin extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnIngresarActionPerformed
 
+    private void txtfCorreoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtfCorreoMousePressed
+        lbCamposVacios.setVisible(false);
+        if(txtfCorreo.getText().equals("Ingrese su correo"))
+            txtfCorreo.setText("");
+    }//GEN-LAST:event_txtfCorreoMousePressed
+
+    private void pswfContraseniaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pswfContraseniaMousePressed
+        lbCamposVacios.setVisible(false);
+        if(String.valueOf(pswfContrasenia.getPassword()).equals("......."))
+            pswfContrasenia.setText("");
+    }//GEN-LAST:event_pswfContraseniaMousePressed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnIngresar;
+    private javax.swing.JLabel lbCamposVacios;
     private javax.swing.JLabel lbEasyConference;
     private javax.swing.JLabel lbInicio_sesion;
     private javax.swing.JLabel lbNotienesCuenta;

@@ -8,7 +8,6 @@ import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
-import com.easyconference.access.IUserService;
 
 /**
  * Esta clase contiene servivios para la clase Usuario

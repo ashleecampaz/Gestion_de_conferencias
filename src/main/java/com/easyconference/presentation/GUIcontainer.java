@@ -6,6 +6,8 @@ import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.ArticuloService;
 import com.easyconference.domain.service.ConferenceService;
+import com.easyconference.domain.service.IUserService;
+import com.easyconference.domain.service.UserService;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
@@ -207,6 +209,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         lbBtnBuscar = new javax.swing.JLabel();
         pnlSuperior = new javax.swing.JPanel();
         lbeasyConference = new javax.swing.JLabel();
+        lbCerrarSesion = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(873, 650));
@@ -351,12 +354,31 @@ public class GUIcontainer extends javax.swing.JFrame {
 
         pnlSuperior.setBackground(new java.awt.Color(0, 153, 153));
         pnlSuperior.setPreferredSize(new java.awt.Dimension(1028, 52));
-        pnlSuperior.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 5, 20));
+        pnlSuperior.setLayout(new java.awt.BorderLayout(10, 0));
 
         lbeasyConference.setFont(new java.awt.Font("Segoe UI Semibold", 1, 24)); // NOI18N
         lbeasyConference.setForeground(new java.awt.Color(255, 255, 255));
         lbeasyConference.setText("easyConference");
-        pnlSuperior.add(lbeasyConference);
+        pnlSuperior.add(lbeasyConference, java.awt.BorderLayout.CENTER);
+        pnlSuperior.add(lbeasyConference, java.awt.BorderLayout.WEST);
+
+        lbCerrarSesion.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        lbCerrarSesion.setForeground(new java.awt.Color(255, 255, 255));
+        lbCerrarSesion.setText("Cerrar sesion");
+        lbCerrarSesion.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        lbCerrarSesion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbCerrarSesionMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbCerrarSesionMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbCerrarSesionMouseExited(evt);
+            }
+        });
+        pnlSuperior.add(lbCerrarSesion, java.awt.BorderLayout.PAGE_START);
+        pnlSuperior.add(lbCerrarSesion, java.awt.BorderLayout.EAST);
 
         getContentPane().add(pnlSuperior, java.awt.BorderLayout.PAGE_START);
         getContentPane().add(pnlSuperior, java.awt.BorderLayout.NORTH);
@@ -390,12 +412,29 @@ public class GUIcontainer extends javax.swing.JFrame {
 
     }//GEN-LAST:event_lbBtnBuscarMouseClicked
 
+    private void lbCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseEntered
+        lbCerrarSesion.setFont(new java.awt.Font("Segoe UI Semilight", 1, 14));
+    }//GEN-LAST:event_lbCerrarSesionMouseEntered
+
+    private void lbCerrarSesionMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseExited
+        lbCerrarSesion.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
+    }//GEN-LAST:event_lbCerrarSesionMouseExited
+
+    private void lbCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseClicked
+        this.dispose();
+        UserService userService = new UserService((IUserService) conferenceService.getReferenceRepositoryConferency());
+        GUIlogin login = new GUIlogin(userService);
+        login.setLocationRelativeTo(null);
+        login.setVisible(true);
+    }//GEN-LAST:event_lbCerrarSesionMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskpaneContenedor;
     private javax.swing.JInternalFrame intfInicio;
     private javax.swing.JLabel lbBienvenido;
     private javax.swing.JLabel lbBtnBuscar;
+    private javax.swing.JLabel lbCerrarSesion;
     private javax.swing.JLabel lbCrearCon;
     private javax.swing.JLabel lbListadoAr;
     private javax.swing.JLabel lbListadoCon;

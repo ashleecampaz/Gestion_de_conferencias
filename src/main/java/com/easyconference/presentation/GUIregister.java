@@ -37,16 +37,15 @@ public class GUIregister extends javax.swing.JFrame {
     
     private void setupEventListeners() {
         btnRegistrar.addActionListener(e -> handleRegistration());
-        // Añadir un nuevo botón para imprimir usuarios (si no existe, créalo en el diseño)
-        btnImprimirUsuarios.addActionListener(e -> btnImprimirUsuariosActionPerformed(null)); 
+        
     }
     
     private void handleRegistration() {
         String name = txtfNombre.getText();
         String lastName = txtfApellido.getText();
         String email = txtfCorreo.getText();
-        String password = new String(txtfContrasenia.getText());
-        String confirmPassword = new String(txtConContrasenia.getText());
+        String password = String.valueOf(pswdfConContrasenia.getPassword()) ;
+        String confirmPassword = String.valueOf(pswdfConContrasenia.getPassword()) ;
         String country = txtfPais.getText();
         String organization = txtfOrganizacion.getText();
         String fields = txtaCamposInv.getText();
@@ -73,8 +72,8 @@ public class GUIregister extends javax.swing.JFrame {
         txtfNombre.setText("");
         txtfNombre.setText("");
         txtfCorreo.setText("");
-        txtfContrasenia.setText("");
-        txtConContrasenia.setText("");
+        pswdfContrasenia.setText("");
+        pswdfConContrasenia.setText("");
         txtfPais.setText("");
         txtfApellido.setText("");
         txtfOrganizacion.setText("");
@@ -98,15 +97,15 @@ public class GUIregister extends javax.swing.JFrame {
         txtfPais = new javax.swing.JTextField();
         txtfNombre = new javax.swing.JTextField();
         txtfCorreo = new javax.swing.JTextField();
-        txtfContrasenia = new javax.swing.JTextField();
-        txtConContrasenia = new javax.swing.JTextField();
         txtfOrganizacion = new javax.swing.JTextField();
         btnRegistrar = new javax.swing.JButton();
         lbYatienesCuenta = new javax.swing.JLabel();
         sclpCamposInv = new javax.swing.JScrollPane();
         txtaCamposInv = new javax.swing.JTextArea();
-        btnImprimirUsuarios = new javax.swing.JButton();
         txtfApellido = new javax.swing.JTextField();
+        lbMostrarContrasenia = new javax.swing.JLabel();
+        pswdfConContrasenia = new javax.swing.JPasswordField();
+        pswdfContrasenia = new javax.swing.JPasswordField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setMinimumSize(new java.awt.Dimension(682, 542));
@@ -171,38 +170,8 @@ public class GUIregister extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
         pnlFormulario.add(txtfCorreo, gridBagConstraints);
 
-        txtfContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        txtfContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 6;
-        gridBagConstraints.gridheight = 2;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 100;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.8;
-        gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
-        pnlFormulario.add(txtfContrasenia, gridBagConstraints);
-
-        txtConContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
-        txtConContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Confirmar contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        gridBagConstraints = new java.awt.GridBagConstraints();
-        gridBagConstraints.gridx = 0;
-        gridBagConstraints.gridy = 8;
-        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
-        gridBagConstraints.ipadx = 100;
-        gridBagConstraints.anchor = java.awt.GridBagConstraints.LINE_START;
-        gridBagConstraints.weightx = 0.8;
-        gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
-        pnlFormulario.add(txtConContrasenia, gridBagConstraints);
-
         txtfOrganizacion.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         txtfOrganizacion.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Organizacion", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        txtfOrganizacion.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfOrganizacionActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 2;
@@ -270,21 +239,8 @@ public class GUIregister extends javax.swing.JFrame {
         gridBagConstraints.insets = new java.awt.Insets(28, 34, 28, 34);
         pnlFormulario.add(sclpCamposInv, gridBagConstraints);
 
-        btnImprimirUsuarios.setText("ImprimirUsuarios");
-        btnImprimirUsuarios.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnImprimirUsuariosActionPerformed(evt);
-            }
-        });
-        pnlFormulario.add(btnImprimirUsuarios, new java.awt.GridBagConstraints());
-
         txtfApellido.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
         txtfApellido.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Apellido", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
-        txtfApellido.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtfApellidoActionPerformed(evt);
-            }
-        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 2;
@@ -294,6 +250,43 @@ public class GUIregister extends javax.swing.JFrame {
         gridBagConstraints.weightx = 0.8;
         gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
         pnlFormulario.add(txtfApellido, gridBagConstraints);
+
+        lbMostrarContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 12)); // NOI18N
+        lbMostrarContrasenia.setText("clic aqui para mostrar contraseña");
+        lbMostrarContrasenia.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbMostrarContraseniaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                lbMostrarContraseniaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                lbMostrarContraseniaMouseExited(evt);
+            }
+        });
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 9;
+        gridBagConstraints.insets = new java.awt.Insets(0, 31, 0, 0);
+        pnlFormulario.add(lbMostrarContrasenia, gridBagConstraints);
+
+        pswdfConContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        pswdfConContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Confirmar contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 8;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
+        pnlFormulario.add(pswdfConContrasenia, gridBagConstraints);
+
+        pswdfContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14)); // NOI18N
+        pswdfContrasenia.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "*Contraseña", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI Semilight", 0, 12))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 7;
+        gridBagConstraints.fill = java.awt.GridBagConstraints.HORIZONTAL;
+        gridBagConstraints.insets = new java.awt.Insets(18, 32, 0, 0);
+        pnlFormulario.add(pswdfContrasenia, gridBagConstraints);
 
         javax.swing.GroupLayout pnlFondoLayout = new javax.swing.GroupLayout(pnlFondo);
         pnlFondo.setLayout(pnlFondoLayout);
@@ -349,31 +342,12 @@ public class GUIregister extends javax.swing.JFrame {
     }//GEN-LAST:event_lbYatienesCuentaMouseClicked
 
     private void txtfCorreoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfCorreoActionPerformed
-        txtfContrasenia.requestFocus();
+        pswdfContrasenia.requestFocus();
     }//GEN-LAST:event_txtfCorreoActionPerformed
 
     private void cmbPaisesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbPaisesActionPerformed
         txtfOrganizacion.requestFocus();
     }//GEN-LAST:event_cmbPaisesActionPerformed
-
-    private void txtfOrganizacionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfOrganizacionActionPerformed
-        txtaCamposInv.requestFocus();
-    }//GEN-LAST:event_txtfOrganizacionActionPerformed
-
-    private void btnImprimirUsuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnImprimirUsuariosActionPerformed
-        // TODO add your handling code here:
-        //List<Usuario> users = repository.listUsuario();
-        System.out.println("Usuarios registrados:");
-       /** for (Usuario user : users) {
-            System.out.println("Nombre: " + user.getName() + " " + user.getLastName());
-            System.out.println("Email: " + user.getEmail());
-            System.out.println("País: " + user.getCountry());
-            System.out.println("Organización: " + user.getOrganization());
-            System.out.println("Campos de investigación: " + user.getIfields());
-            System.out.println("--------------------");
-        }
-        */
-    }//GEN-LAST:event_btnImprimirUsuariosActionPerformed
 
     private void txtfApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtfApellido1ActionPerformed
         // TODO add your handling code here:
@@ -382,21 +356,39 @@ public class GUIregister extends javax.swing.JFrame {
     private void btnRegistrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistrarMouseClicked
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegistrarMouseClicked
+
+    private void lbMostrarContraseniaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMostrarContraseniaMouseEntered
+     lbMostrarContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 1, 12));
+    }//GEN-LAST:event_lbMostrarContraseniaMouseEntered
+
+    private void lbMostrarContraseniaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMostrarContraseniaMouseExited
+       lbMostrarContrasenia.setFont(new java.awt.Font("Segoe UI Semilight", 0, 12));
+    }//GEN-LAST:event_lbMostrarContraseniaMouseExited
+
+    private void lbMostrarContraseniaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbMostrarContraseniaMouseClicked
+        if (pswdfContrasenia.getEchoChar() == 0) {
+            pswdfContrasenia.setEchoChar('•');
+            pswdfConContrasenia.setEchoChar('•');
+        } else {
+            pswdfContrasenia.setEchoChar((char) 0);
+            pswdfConContrasenia.setEchoChar((char) 0);
+        }
+    }//GEN-LAST:event_lbMostrarContraseniaMouseClicked
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnImprimirUsuarios;
     private javax.swing.JButton btnRegistrar;
     private javax.swing.JLabel lbEasyConference;
+    private javax.swing.JLabel lbMostrarContrasenia;
     private javax.swing.JLabel lbYatienesCuenta;
     private javax.swing.JPanel pnlFondo;
     private javax.swing.JPanel pnlFormulario;
     private javax.swing.JPanel pnlSuperior;
+    private javax.swing.JPasswordField pswdfConContrasenia;
+    private javax.swing.JPasswordField pswdfContrasenia;
     private javax.swing.JScrollPane sclpCamposInv;
-    private javax.swing.JTextField txtConContrasenia;
     private javax.swing.JTextArea txtaCamposInv;
     private javax.swing.JTextField txtfApellido;
-    private javax.swing.JTextField txtfContrasenia;
     private javax.swing.JTextField txtfCorreo;
     private javax.swing.JTextField txtfNombre;
     private javax.swing.JTextField txtfOrganizacion;

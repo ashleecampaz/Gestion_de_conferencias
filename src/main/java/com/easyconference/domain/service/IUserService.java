@@ -1,5 +1,5 @@
 
-package com.easyconference.access;
+package com.easyconference.domain.service;
 import com.easyconference.domain.entities.Usuario;
 import java.util.List;
 /**

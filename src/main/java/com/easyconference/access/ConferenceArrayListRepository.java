@@ -1,6 +1,7 @@
 
 package com.easyconference.access;
 
+import com.easyconference.domain.service.IUserService;
 import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;

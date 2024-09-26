@@ -6,7 +6,7 @@ import com.easyconference.domain.service.UserService;
 import com.easyconference.presentation.GUIcontainer;
 import com.easyconference.presentation.GUIlogin;
 import com.easyconference.presentation.GUIregister;
-import com.easyconference.access.IUserService;
+import com.easyconference.domain.service.IUserService;
 
 /**
  * Esta es la clase principal

@@ -27,4 +27,9 @@ public class ConferenceService {
     public List<Conference> listarConferencias() {
         return this.referenceRepositoryConferency.listConference();
     }
+
+    public IConferenceService getReferenceRepositoryConferency() {
+        return referenceRepositoryConferency;
+    }
+    
 }
