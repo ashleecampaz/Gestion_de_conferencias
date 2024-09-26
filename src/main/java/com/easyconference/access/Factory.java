@@ -4,6 +4,7 @@
  */
 package com.easyconference.access;
 
+import com.easyconference.domain.service.IArticuloService;
 import com.easyconference.domain.service.IConferenceService;
 
 /**
@@ -42,6 +43,21 @@ public class Factory {
                 break;
             case "list":
                 result = new ConferenceLinkedListRepository();
+                break;
+        }
+        return result;
+    }
+    
+    public IArticuloService getArticuloRepository(String type) {
+
+        IArticuloService result = null;
+
+        switch (type) {
+            case "default":
+                result = new ArticuloArrayListRepository();
+                break;
+            case "list":
+                result = new ArticuloLinkedListRepository();
                 break;
         }
         return result;
