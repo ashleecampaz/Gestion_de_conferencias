@@ -272,6 +272,11 @@ public class GUIcontainer extends javax.swing.JFrame {
         intfInicio.getContentPane().add(pnlBotonCrearCon, gridBagConstraints);
 
         lbBtnBuscar.setText("buscar");
+        lbBtnBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbBtnBuscarMouseClicked(evt);
+            }
+        });
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 3;
         gridBagConstraints.gridy = 1;
@@ -323,6 +328,10 @@ public class GUIcontainer extends javax.swing.JFrame {
         dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
         crearConferencia.setVisible(true);
     }//GEN-LAST:event_lbCrearConMouseClicked
+
+    private void lbBtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBtnBuscarMouseClicked
+        
+    }//GEN-LAST:event_lbBtnBuscarMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -7,8 +7,9 @@ package com.example.test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
 import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.service.UserService;
 
 public class RegisterServiceTest {
@@ -120,5 +121,17 @@ public class RegisterServiceTest {
 
         assertFalse(resultado, "No debería permitirse registrar un usuario con campos faltantes.");
         assertEquals(0, repository.listUsuario().size(), "No debería haber usuarios registrados.");
+    }
+    
+    @Test
+    public void testListarConferencias (){
+        ConferenceArrayListRepository objConference = new ConferenceArrayListRepository();
+        ConferenceService Services = new ConferenceService(objConference);
+        Conference conferencia = new Conference("Energia Nuclear", "Ciencia", "UNO", "USA", "ACTIVO", "MAYAMI", "EJEMPLO", "11-11-2025", "11-11-2026", "11-10-2025", "11-10-2025", 2, 1, 1);
+        Services.almacenarConferencia(conferencia);
+        int resultado = objConference.listConference().size();
+        System.out.println(""+objConference.listConference().get(0).getName());
+        assertFalse(resultado>0, "La lista se creo Exitosamente");
+        assertEquals(resultado==0, repository.listUsuario().size(), "No debería haber usuarios registrados.");
     }
 }
