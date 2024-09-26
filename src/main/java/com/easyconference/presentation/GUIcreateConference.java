@@ -1,7 +1,9 @@
 
 package com.easyconference.presentation;
 import com.easyconference.domain.entities.Conference;
+import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.ConferenceService;
+import com.easyconference.domain.service.UserService;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -30,14 +32,14 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
     /**
      * Creates new form GUIcreateConference
      */
-       private ConferenceService registerConference;
-    
+       private ConferenceService conferenceService;
+       private Usuario usuario;
 
     
-    public GUIcreateConference() {
+    public GUIcreateConference(ConferenceService con, Usuario us) {
+        this.conferenceService = con;
+        this.usuario=us;
         initComponents();
-      
-       
     }
 
     /**
@@ -446,22 +448,22 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_pnlBotonGuardarMouseExited
 
     private void pnlBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseClicked
-      try {
-        // Recolección de los datos desde los textboxes
-        String nombre = txtfNombre.getText();
-        String temas = txtfTemas.getText();
-        String entidadOrganizadora = txtfEntOrganizadora.getText();
-        String fechaInicio = txtfFechaInicio.getText(); // Formato: dd-MM-yyyy
-        String fechaFin = txtfFechaFin.getText();       // Formato: dd-MM-yyyy
-        String plazoMaxRec = txtfPlazoMaxRec.getText(); // Formato: dd-MM-yyyy
-        String maxArt = txtfMaxArt.getText();
-        String plazoMaxEva = txtfPlazoMaxEva.getText(); // Formato: dd-MM-yyyy
-        String maxCalAcep = txtfMaxCalAcep.getText();
-        String maxArtAcep = txtfMaxArtAcep.getText();
-        String pais = txtfPais.getText();
-        String ciudad = txtfCiudad.getText();
-        String estado = txtfEstado.getText();
-        String direccion = txtfDireccion.getText();
+    try {
+        // Recolección de los datos desde los textboxes, aplicando trim() a cada campo
+        String nombre = txtfNombre.getText().trim();
+        String temas = txtfTemas.getText().trim();
+        String entidadOrganizadora = txtfEntOrganizadora.getText().trim();
+        String fechaInicio = txtfFechaInicio.getText().trim(); // Formato: dd-MM-yyyy
+        String fechaFin = txtfFechaFin.getText().trim();       // Formato: dd-MM-yyyy
+        String plazoMaxRec = txtfPlazoMaxRec.getText().trim(); // Formato: dd-MM-yyyy
+        String maxArt = txtfMaxArt.getText().trim();
+        String plazoMaxEva = txtfPlazoMaxEva.getText().trim(); // Formato: dd-MM-yyyy
+        String maxCalAcep = txtfMaxCalAcep.getText().trim();
+        String maxArtAcep = txtfMaxArtAcep.getText().trim();
+        String pais = txtfPais.getText().trim();
+        String ciudad = txtfCiudad.getText().trim();
+        String estado = txtfEstado.getText().trim();
+        String direccion = txtfDireccion.getText().trim();
 
         // Validación de campos vacíos
         if (nombre.isEmpty() || temas.isEmpty() || entidadOrganizadora.isEmpty() || fechaInicio.isEmpty() || fechaFin.isEmpty() ||
@@ -469,6 +471,32 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             pais.isEmpty() || ciudad.isEmpty() || estado.isEmpty() || direccion.isEmpty()) {
             
             showMessage("Todos los campos deben ser completados.");
+            return;
+        }
+
+        // Verificación previa de los campos numéricos para evitar NumberFormatException
+        int numMaxArt;
+        int numMaxArtAcep;
+        float calMinima;
+
+        try {
+            numMaxArt = Integer.parseInt(maxArt); // Validar maxArt
+        } catch (NumberFormatException e) {
+            showMessage("Error: El campo 'Número máximo de artículos' debe ser un número entero.");
+            return;
+        }
+
+        try {
+            numMaxArtAcep = Integer.parseInt(maxArtAcep); // Validar maxArtAcep
+        } catch (NumberFormatException e) {
+            showMessage("Error: El campo 'Número máximo de artículos aceptados' debe ser un número entero.");
+            return;
+        }
+
+        try {
+            calMinima = Float.parseFloat(maxCalAcep); // Validar maxCalAcep
+        } catch (NumberFormatException e) {
+            showMessage("Error: El campo 'Calificación mínima' debe ser un número decimal.");
             return;
         }
 
@@ -511,29 +539,25 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
         }
 
         // Validar número máximo de artículos aceptados (debe ser menor al número de artículos recibidos)
-        int numMaxArt = Integer.parseInt(maxArt);
-        int numMaxArtAcep = Integer.parseInt(maxArtAcep);
         if (numMaxArtAcep >= numMaxArt) {
             showMessage("El número de artículos aceptados debe ser menor que el número total de artículos.");
             return;
         }
 
         // Si todas las validaciones pasan, crear el objeto Conference
-        float calMinima = Float.parseFloat(maxCalAcep);
         Conference conferencia = new Conference(nombre, temas, entidadOrganizadora, pais, estado, ciudad, direccion, fechaInicio, fechaFin, plazoMaxEva, plazoMaxRec, numMaxArt, numMaxArtAcep, calMinima);
 
         // Guardar la conferencia o realizar la acción que corresponda
-        registerConference.almacenarConferencia(conferencia);
+        conferenceService.almacenarConferencia(conferencia);
         showMessage("Conferencia registrada exitosamente.");
-    
+        this.dispose(); 
+        GUIcontainer guiContainer = new GUIcontainer(usuario, conferenceService);
+        guiContainer.setVisible(true);
     } catch (DateTimeParseException e) {
         showMessage("Error: Formato de fecha no válido. Debe ser dd-MM-yyyy.");
-    } catch (NumberFormatException e) {
-        showMessage("Error: Asegúrese de que los campos numéricos tengan valores válidos.");
     } catch (Exception e) {
         showMessage("Error: " + e.getMessage());
     }
-
     }//GEN-LAST:event_pnlBotonGuardarMouseClicked
 
 

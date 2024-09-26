@@ -4,28 +4,58 @@
  */
 package com.easyconference.presentation;
 
+import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.ConferenceService;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.beans.PropertyVetoException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.plaf.basic.BasicInternalFrameUI;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
 
 /**
  *
  * @author Ashlee Campaz
  */
 public class GUIcontainer extends javax.swing.JFrame {
+
     private Usuario usuario;
-    private ConferenceService conferenceService; 
+    private ConferenceService conferenceService;
+
     /**
      * Creates new form GUIcontainer
      */
     public GUIcontainer(Usuario us, ConferenceService con) {
         this.usuario = us;
-        this.conferenceService = con; 
+        this.conferenceService = con;
         initComponents();
-        
+        listConferences();  
+    }
+
+    @SuppressWarnings("unchecked")
+    // Método que se ejecuta cuando el usuario hace clic en "Listado de conferencias"
+    private void listConferences() {
+        pnlListadoCon.removeAll();  // Limpiamos el contenido actual del panel de conferencias
+
+        List<Conference> conferences = conferenceService.listarConferencias();  // Obtenemos todas las conferencias desde el servicio
+
+        // Por cada conferencia, creamos un mini panel con su información
+        for (Conference conference : conferences) {
+            JPanel conferencePanel = new JPanel();  // Creamos un panel para cada conferencia
+            JLabel nameLabel = new JLabel("Conferencia: " + conference.getName());  // Etiqueta con el nombre de la conferencia
+            JLabel dateLabel = new JLabel("Fecha: " + conference.getStartDate());  // Etiqueta con la fecha de la conferencia
+            conferencePanel.add(nameLabel);  // Añadimos la etiqueta del nombre al mini panel
+            conferencePanel.add(dateLabel);  // Añadimos la etiqueta de la fecha al mini panel
+            pnlListadoCon.add(conferencePanel);  // Añadimos el mini panel al panel principal de conferencias
+        }
+
+        pnlListadoCon.revalidate();  // Refrescamos el panel para mostrar los nuevos componentes
+        pnlListadoCon.repaint();  // Repintamos el panel
     }
 
     /**
@@ -214,23 +244,22 @@ public class GUIcontainer extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCrearConMouseExited
 
     private void lbCrearConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCrearConMouseClicked
-        GUIcreateConference crearConferencia = new GUIcreateConference();
+        GUIcreateConference crearConferencia = new GUIcreateConference(conferenceService, usuario);
         GUIcreateArticle crearAriticulo = new GUIcreateArticle();
         try {
             crearConferencia.setMaximum(true);
-           
+
         } catch (PropertyVetoException ex) {
             Logger.getLogger(GUIcontainer.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
         dskpaneContenedor.add(crearConferencia, java.awt.BorderLayout.CENTER);
         intfInicio.setVisible(false);
-       
+
         crearConferencia.setVisible(true);
-        
+
     }//GEN-LAST:event_lbCrearConMouseClicked
 
-  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane dskpaneContenedor;

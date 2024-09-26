@@ -4,7 +4,9 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.domain.entities.Usuario;
+import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.service.UserService;
 import com.easyconference.presentation.GUIcreateConference;
 import java.lang.reflect.InvocationTargetException;
@@ -41,7 +43,10 @@ class ConferenceTest {
         txtfDireccion = new JTextField();
 
         // Instancia del formulario que contiene el método pnlBotonGuardarMouseClicked
-        conferenceForm = new GUIcreateConference();
+        ConferenceArrayListRepository r = new ConferenceArrayListRepository();
+        Usuario u = new Usuario("Test", "Test", "Test", "Test", "Test", "Test", "Test");
+        ConferenceService c = new ConferenceService(r);
+        conferenceForm = new GUIcreateConference(c,u);
     }
 
     @Test

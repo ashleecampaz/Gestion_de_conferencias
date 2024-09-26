@@ -10,10 +10,10 @@ import java.util.List;
  *
  * @author HSVSTT2
  */
-public class ConferenciaLinkedListRepository implements IConferenceService
+public class ConferenceLinkedListRepository implements IConferenceService
 {
     private LinkedList<Conference> listConference;
-    public ConferenciaLinkedListRepository (){
+    public ConferenceLinkedListRepository (){
         this.listConference=new LinkedList();
     }
     

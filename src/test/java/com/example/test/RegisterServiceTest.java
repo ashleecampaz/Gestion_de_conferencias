@@ -8,17 +8,17 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.service.UserService;
 
 public class RegisterServiceTest {
 
     private UserService registerService;
-    private ConferenciaArrayListRepository repository;
+    private ConferenceArrayListRepository repository;
 
     @BeforeEach
     public void setup() {
-        repository = new ConferenciaArrayListRepository();
+        repository = new ConferenceArrayListRepository();
         registerService = new UserService(repository);
     }
 

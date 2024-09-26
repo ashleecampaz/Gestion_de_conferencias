@@ -8,12 +8,12 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 
-public class ConferenciaArrayListRepository implements IConferenceService, IUserService{
+public class ConferenceArrayListRepository implements IConferenceService, IUserService{
 
     private ArrayList<Conference> listConference;
     private List<Usuario> usuarios; 
    
-    public ConferenciaArrayListRepository()
+    public ConferenceArrayListRepository()
     {
         this.listConference= new ArrayList();
         this.usuarios = new ArrayList();

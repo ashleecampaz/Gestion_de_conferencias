@@ -4,7 +4,7 @@
  */
 package com.easyconference.domain.service;
 
-import com.easyconference.access.ConferenciaArrayListRepository;
+import com.easyconference.access.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;

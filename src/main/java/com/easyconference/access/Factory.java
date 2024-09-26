@@ -38,10 +38,10 @@ public class Factory {
 
         switch (type) {
             case "default":
-                result = new ConferenciaArrayListRepository();
+                result = new ConferenceArrayListRepository();
                 break;
             case "list":
-                result = new ConferenciaLinkedListRepository();
+                result = new ConferenceLinkedListRepository();
                 break;
         }
         return result;
