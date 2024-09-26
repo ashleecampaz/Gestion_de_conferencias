@@ -46,9 +46,9 @@
                   <EmptySpace max="32767" attributes="0"/>
               </Group>
               <Group type="102" alignment="1" attributes="0">
-                  <EmptySpace pref="68" max="32767" attributes="0"/>
+                  <EmptySpace pref="81" max="32767" attributes="0"/>
                   <Component id="jPanelMenu" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="55" max="32767" attributes="0"/>
+                  <EmptySpace pref="68" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -84,7 +84,7 @@
                       <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
                       <Component id="jButtonGestionarConferencias" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="47" max="-2" attributes="0"/>
-                      <Component id="jButtonVerArticulosEnviados" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonRegistrarArticulo" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="63" max="32767" attributes="0"/>
                       <Component id="jButtonVerEstadisticas" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
@@ -97,7 +97,7 @@
                       <EmptySpace pref="27" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jButtonGestionarConferencias" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButtonVerArticulosEnviados" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonRegistrarArticulo" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jButtonVerEstadisticas" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
@@ -114,12 +114,12 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonGestionarConferenciasActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="jButtonVerArticulosEnviados">
+            <Component class="javax.swing.JButton" name="jButtonRegistrarArticulo">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Ver articulos enviados"/>
+                <Property name="text" type="java.lang.String" value="Registrar Articulo"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonVerArticulosEnviadosActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRegistrarArticuloActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JButton" name="jButtonVerEstadisticas">

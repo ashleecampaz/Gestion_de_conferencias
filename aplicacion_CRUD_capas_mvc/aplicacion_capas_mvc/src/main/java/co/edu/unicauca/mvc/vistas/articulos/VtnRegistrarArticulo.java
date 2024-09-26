@@ -16,7 +16,7 @@ import java.util.LinkedList;
  *
  * @author HSVSTT2
  */
-public class VtnRegistrarArticulo extends javax.swing.JFrame {
+public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
 
     private ServicioAlmacenamientoArticulos objServicio1;
     private ServicioAlmacenamientoConferencias objServicio2;
@@ -27,17 +27,10 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
         initComponents();
         this.objServicio1=objServicio1;
         this.objServicio2=objServicio2;
-        cargarConferencias();
+       
     }
     
-    public void cargarConferencias()
-    {
-        
-        ArrayList<Conferencia> conferencias= (ArrayList<Conferencia>) this.objServicio2.listarConferencias();
-         for (int i = 0; i < conferencias.size(); i++) {
-            this.jComboBoxConferencia.addItem(conferencias.get(i));
-        }
-    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -49,23 +42,30 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelEncabezado = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        jLabelTitulo = new javax.swing.JLabel();
+        jLabelAutores = new javax.swing.JLabel();
         jTextFieldTitulo = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextAreaAutores = new javax.swing.JTextArea();
         jButtonRegistrar = new javax.swing.JButton();
-        jLabel4 = new javax.swing.JLabel();
-        jComboBoxConferencia = new javax.swing.JComboBox<>();
+        jLabelTipo = new javax.swing.JLabel();
+        jComboBoxTipo = new javax.swing.JComboBox<>();
+        jLabelResumen = new javax.swing.JLabel();
+        jTextFieldTitulo1 = new javax.swing.JTextField();
+        jLabelResumenInstitucion = new javax.swing.JLabel();
+        jTextFieldTitulo2 = new javax.swing.JTextField();
+        jLabelResumenFormato = new javax.swing.JLabel();
+        jComboBoxFormato = new javax.swing.JComboBox<>();
+        jTextAreaAutores = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel3.setText("Registrar articulo");
+        jLabelEncabezado.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 24)); // NOI18N
+        jLabelEncabezado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabelEncabezado.setText("Registrar articulo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -73,14 +73,14 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(231, 231, 231)
-                .addComponent(jLabel3)
-                .addContainerGap(258, Short.MAX_VALUE))
+                .addComponent(jLabelEncabezado)
+                .addContainerGap(231, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(35, 35, 35)
-                .addComponent(jLabel3)
+                .addComponent(jLabelEncabezado)
                 .addContainerGap(49, Short.MAX_VALUE))
         );
 
@@ -103,13 +103,11 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
-        jLabel1.setText("Titulo:");
+        jLabelTitulo.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelTitulo.setText("Titulo:");
 
-        jLabel2.setText("Autores:");
-
-        jTextAreaAutores.setColumns(20);
-        jTextAreaAutores.setRows(5);
-        jScrollPane1.setViewportView(jTextAreaAutores);
+        jLabelAutores.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelAutores.setText("Autores:");
 
         jButtonRegistrar.setText("Registrar");
         jButtonRegistrar.addActionListener(new java.awt.event.ActionListener() {
@@ -118,47 +116,89 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
             }
         });
 
-        jLabel4.setText("Conferencia:");
+        jLabelTipo.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelTipo.setText("Tipo: ");
+
+        jComboBoxTipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Artículo de Investigación", "Artículo de Revisión", "Estudio de Caso", "Artículo de Opinión", "Artículo Metodológico", "Artículo de Reporte", "Artículo de Conferencia" }));
+
+        jLabelResumen.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelResumen.setText("Resumen: ");
+
+        jLabelResumenInstitucion.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelResumenInstitucion.setText("Institución: ");
+
+        jLabelResumenFormato.setFont(new java.awt.Font("Gloucester MT Extra Condensed", 0, 14)); // NOI18N
+        jLabelResumenFormato.setText("Formato: ");
+
+        jComboBoxFormato.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "PDF", "DOCX", "LaTeX", "RTF", "ODT", "HTML", "TXT" }));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(102, 102, 102)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel4)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel1)
-                        .addComponent(jLabel2)))
-                .addGap(42, 42, 42)
+                    .addComponent(jLabelTitulo)
+                    .addComponent(jLabelAutores)
+                    .addComponent(jLabelResumen))
+                .addGap(33, 33, 33)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jComboBoxConferencia, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jTextFieldTitulo))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 25, Short.MAX_VALUE)
-                .addComponent(jButtonRegistrar)
+                    .addComponent(jTextFieldTitulo1, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE)
+                    .addComponent(jTextFieldTitulo2, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jTextAreaAutores, javax.swing.GroupLayout.DEFAULT_SIZE, 163, Short.MAX_VALUE))
+                .addGap(59, 59, 59)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabelTipo)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addGap(0, 116, Short.MAX_VALUE)
+                                .addComponent(jButtonRegistrar))
+                            .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabelResumenFormato)
+                            .addComponent(jLabelResumenInstitucion))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jComboBoxFormato, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jTextFieldTitulo))))
                 .addGap(32, 32, 32))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(30, 30, 30)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel2)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabelTitulo)
+                    .addComponent(jLabelTipo)
+                    .addComponent(jComboBoxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(4, 4, 4)
-                        .addComponent(jButtonRegistrar))
-                    .addComponent(jComboBoxConferencia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                        .addGap(46, 46, 46)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelResumenFormato)
+                            .addComponent(jComboBoxFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(32, 32, 32)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabelResumenInstitucion)
+                            .addComponent(jTextFieldTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButtonRegistrar)
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextAreaAutores, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelAutores))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldTitulo1, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabelResumen))
+                        .addGap(24, 24, 24))))
         );
 
         getContentPane().add(jPanel3, java.awt.BorderLayout.CENTER);
@@ -173,12 +213,12 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
         
         titulo=this.jTextFieldTitulo.getText();
         autores=this.jTextAreaAutores.getText();
-        objConferencia=(Conferencia) this.jComboBoxConferencia.getSelectedItem();
+       
         
         Articulo objArticulo= new Articulo();
         objArticulo.setTitulo(titulo);
         objArticulo.setAutores(autores);
-        objArticulo.setObjConferencia(objConferencia);
+       
         
         bandera=this.objServicio1.almacenarArticulo(objArticulo);
         
@@ -196,16 +236,21 @@ public class VtnRegistrarArticulo extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonRegistrar;
-    private javax.swing.JComboBox<Conferencia> jComboBoxConferencia;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JComboBox<String> jComboBoxFormato;
+    private javax.swing.JComboBox<String> jComboBoxTipo;
+    private javax.swing.JLabel jLabelAutores;
+    private javax.swing.JLabel jLabelEncabezado;
+    private javax.swing.JLabel jLabelResumen;
+    private javax.swing.JLabel jLabelResumenFormato;
+    private javax.swing.JLabel jLabelResumenInstitucion;
+    private javax.swing.JLabel jLabelTipo;
+    private javax.swing.JLabel jLabelTitulo;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextAreaAutores;
+    private javax.swing.JTextField jTextAreaAutores;
     private javax.swing.JTextField jTextFieldTitulo;
+    private javax.swing.JTextField jTextFieldTitulo1;
+    private javax.swing.JTextField jTextFieldTitulo2;
     // End of variables declaration//GEN-END:variables
 }
