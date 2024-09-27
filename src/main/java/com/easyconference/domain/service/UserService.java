@@ -42,7 +42,7 @@ public class UserService{
      */
     public boolean registerUser(String name, String lastName, String email, String password, String country, String organization, String Ifields) {
         // Validar todos los campos
-        if (!validateFields(name, lastName, email, password, country, organization, Ifields)) {
+        if (!validateFields(name, lastName, email, password, country, organization, Ifields) || repository.isEmailRegistered(email)) {
             return false;
         }
         // Crear nuevo usuario

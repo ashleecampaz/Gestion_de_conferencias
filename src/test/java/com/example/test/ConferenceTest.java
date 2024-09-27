@@ -1,4 +1,5 @@
 package com.example.test;
+import com.easyconference.access.ConferenceArrayListRepository;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -43,5 +44,12 @@ public class ConferenceTest {
         assertEquals(conference, repository.listConference().get(0), "La conferencia almacenada no coincide.");
     }
     
-    
+    @Test
+    public void testListarConferencias (){
+        Conference conferencia = new Conference("Energia Nuclear", "Ciencia", "UNO", "USA", "ACTIVO", "MAYAMI", "EJEMPLO", "11-11-2025", "11-11-2026", "11-10-2025", "11-10-2025", 2, 1, 1);
+        conferenceService.almacenarConferencia(conferencia);
+        int resultado = conferenceService.listarConferencias().size();
+        
+        assertTrue(resultado>0, "La lista se creo Exitosamente");
+    }
 }
