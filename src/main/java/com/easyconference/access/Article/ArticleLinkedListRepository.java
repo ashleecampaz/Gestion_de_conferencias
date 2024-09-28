@@ -1,7 +1,6 @@
-package com.easyconference.access;
+package com.easyconference.access.Article;
 
 import com.easyconference.domain.entities.Articulo;
-import com.easyconference.domain.service.IArticuloService;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -9,10 +8,10 @@ import java.util.List;
  *
  * @author sonhuila
  */
-public class ArticuloLinkedListRepository implements IArticuloService{
+public class ArticleLinkedListRepository implements IArticleRepository{
     private LinkedList<Articulo> listaArticulos;
     
-    public ArticuloLinkedListRepository()
+    public ArticleLinkedListRepository()
     {
         this.listaArticulos= new LinkedList();
     }

@@ -1,11 +1,11 @@
 package com.example.test;
-import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.domain.entities.Conference;
-import com.easyconference.access.ConferenceLinkedListRepository;
+import com.easyconference.access.Conference.ConferenceLinkedListRepository;
 /**
  * Clase e pruebas unitarias para conferencia 
  * 

@@ -1,5 +1,5 @@
 
-package com.easyconference.domain.service;
+package com.easyconference.access.User;
 import com.easyconference.domain.entities.Usuario;
 import java.util.List;
 /**
@@ -8,7 +8,7 @@ import java.util.List;
  * @version 1.0
  * @since 2024
  */
-public interface IUserService {
+public interface IUserRepository {
     void storeUsuario(Usuario usuario);
     List<Usuario> obtenerRegistros();
     boolean validarNombre(String name);

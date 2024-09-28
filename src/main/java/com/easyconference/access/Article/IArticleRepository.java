@@ -1,4 +1,4 @@
-package com.easyconference.domain.service;
+package com.easyconference.access.Article;
 
 import com.easyconference.domain.entities.Articulo;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author sonhuila
  */
-public interface IArticuloService {
+public interface IArticleRepository {
     public boolean almacenarArticulo(Articulo objArticulo);
     public List<Articulo> listarArticulos();
 }

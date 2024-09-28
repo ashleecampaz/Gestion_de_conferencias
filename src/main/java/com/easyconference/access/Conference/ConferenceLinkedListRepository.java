@@ -1,6 +1,5 @@
-package com.easyconference.access;
+package com.easyconference.access.Conference;
 
-import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.entities.Conference;
 import java.util.LinkedList;
 import java.util.List;
@@ -14,7 +13,7 @@ import java.util.List;
  * @since 2024
  */
 
-public class ConferenceLinkedListRepository implements IConferenceService {
+public class ConferenceLinkedListRepository implements IConferenceRepository {
 
     private LinkedList<Conference> listConference;
 

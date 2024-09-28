@@ -1,62 +1,27 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package com.easyconference.access.User;
 
-package com.easyconference.access;
-
-import com.easyconference.domain.service.IUserService;
-import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
+
 /**
- * Esta clase representa una Repositorio basado en ArrayList
- * Permite almacenar y recuperar información sobre conferencias,
- * como tambien de usuarios, ademas de realizar algunas validaciones 
- * a la clase usuario
- * 
- * @author 
- * @version 1.0
- * @since 2024
+ *
+ * @author Personal
  */
+public class UserArrayListRepository implements IUserRepository {
+    private ArrayList<Usuario> usuarios;
 
-public class ConferenceArrayListRepository implements IConferenceService, IUserService{
-
+    public UserArrayListRepository() {
+        this.usuarios = new ArrayList();
+    }
     
-
-    private ArrayList<Conference> listConference;
-    private List<Usuario> usuarios; 
-
-    /**
-     * Constructor que inicializa las listas de conferencias y usuarios.
-     */
-    public ConferenceArrayListRepository() {
-        this.listConference = new ArrayList<>();
-        this.usuarios = new ArrayList<>();
-    }
-
-    /**
-     * Almacena una conferencia en el repositorio.
-     *
-     * @param objConference La conferencia a almacenar.
-     * @return true si la conferencia fue agregada correctamente, false en caso contrario.
-     */
-    @Override
-    public boolean storeConference(Conference objConference) {
-        boolean bandera = this.listConference.add(objConference);
-        return bandera;
-    }
-
-    /**
-     * Retorna la lista de conferencias almacenadas.
-     *
-     * @return Una lista de conferencias.
-     */
-    @Override
-    public List<Conference> listConference() {
-        return this.listConference;
-    }
-
-    /**
+      /**
      * Retorna la lista de usuarios almacenados.
      *
      * @return Una lista de usuarios.
@@ -180,14 +145,6 @@ public class ConferenceArrayListRepository implements IConferenceService, IUserS
        }
        return null;
     }
-    @Override
-    public List<Conference> SearchConferenciasForName(String searchText) {
-        List<Conference> result = new ArrayList<>();
-        for (Conference conference : listConference) {
-            if (conference.getName().toLowerCase().contains(searchText.toLowerCase())) {
-                result.add(conference);
-            }
-        }
-        return result;
-    }
+   
+    
 }

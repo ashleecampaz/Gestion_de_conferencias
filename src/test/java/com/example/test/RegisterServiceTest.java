@@ -4,7 +4,8 @@ package com.example.test;
 import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
+import com.easyconference.access.User.UserArrayListRepository;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.ConferenceService;
@@ -20,11 +21,11 @@ import com.easyconference.domain.service.UserService;
 public class RegisterServiceTest {
 
     private UserService registerService;
-    private ConferenceArrayListRepository repository;
+    private UserArrayListRepository repository;
 
     @BeforeEach
     public void setup() {
-        repository = new ConferenceArrayListRepository();
+        repository = new UserArrayListRepository();
         registerService = new UserService(repository);
     }
 

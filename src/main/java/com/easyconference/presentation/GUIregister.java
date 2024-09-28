@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import java.util.ArrayList;
 import  javax.swing.JOptionPane;
 
-import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import com.easyconference.domain.service.UserService;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.easyconference.domain.service;
+package com.easyconference.access.Conference;
 
 import com.easyconference.domain.entities.Conference;
 import java.util.List;
@@ -10,7 +10,7 @@ import java.util.List;
  * @since 2024
  */
 
-public interface IConferenceService {
+public interface IConferenceRepository {
     public boolean storeConference(Conference objConference);
     public List<Conference> listConference();
     public List<Conference> SearchConferenciasForName(String searchText);

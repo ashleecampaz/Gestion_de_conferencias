@@ -1,7 +1,6 @@
-package com.easyconference.access;
+package com.easyconference.access.Article;
 
 import com.easyconference.domain.entities.Articulo;
-import com.easyconference.domain.service.IArticuloService;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,10 +8,10 @@ import java.util.List;
  *
  * @author sonhuila
  */
-public class ArticuloArrayListRepository implements IArticuloService{
+public class ArticleArrayListRepository implements IArticleRepository{
     private ArrayList<Articulo> listaArticulos;
 
-    public ArticuloArrayListRepository() {
+    public ArticleArrayListRepository() {
         this.listaArticulos = new ArrayList<>();
     }
 

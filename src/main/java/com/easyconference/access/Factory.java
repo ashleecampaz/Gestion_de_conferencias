@@ -1,8 +1,15 @@
 
 package com.easyconference.access;
 
-import com.easyconference.domain.service.IArticuloService;
-import com.easyconference.domain.service.IConferenceService;
+import com.easyconference.access.Article.ArticleLinkedListRepository;
+import com.easyconference.access.Article.ArticleArrayListRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
+import com.easyconference.access.Conference.ConferenceLinkedListRepository;
+import com.easyconference.access.Conference.IConferenceRepository;
+import com.easyconference.access.User.IUserRepository;
+import com.easyconference.access.User.UserArrayListRepository;
+import com.easyconference.access.User.UserLinkedListRepository;
+import com.easyconference.access.Article.IArticleRepository;
 /**
  * Esta clase implementa el patrón Singleton para proporcionar una instancia única
  * de la clase Factory, la cual se encarga de crear repositorios de conferencias.
@@ -39,12 +46,12 @@ public class Factory {
      * @param type El tipo de repositorio a crear. Puede ser "default" para
      *             un repositorio basado en ArrayList o "list" para uno basado
      *             en LinkedList.
-     * @return Una instancia de IConferenceService correspondiente al tipo
-     *         solicitado, o null si el tipo no es reconocido.
+     * @return Una instancia de IConferenceRepository correspondiente al tipo
+         solicitado, o null si el tipo no es reconocido.
      */
-    public IConferenceService getRepository(String type) {
+    public IConferenceRepository getConferenceRepository(String type) {
 
-        IConferenceService result = null;
+        IConferenceRepository result = null;
 
         switch (type) {
             case "default":
@@ -57,19 +64,35 @@ public class Factory {
         return result;
     }
     
-    public IArticuloService getArticuloRepository(String type) {
+    public IArticleRepository getArticleRepository(String type) {
 
-        IArticuloService result = null;
+        IArticleRepository result = null;
 
         switch (type) {
             case "default":
-                result = new ArticuloArrayListRepository();
+                result = new ArticleArrayListRepository();
                 break;
             case "list":
-                result = new ArticuloLinkedListRepository();
+                result = new ArticleLinkedListRepository();
                 break;
         }
         return result;
     }
+    
+    public IUserRepository getUserRepository(String type) {
+
+        IUserRepository result = null;
+
+        switch (type) {
+            case "default":
+                result = new UserArrayListRepository();
+                break;
+            case "list":
+                result = new UserLinkedListRepository();
+                break;
+        }
+        return result;
+    }
+   
    
 }

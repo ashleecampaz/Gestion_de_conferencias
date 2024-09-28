@@ -1,7 +1,7 @@
 package com.example.test;
 
 import com.easyconference.domain.entities.Usuario;
-import com.easyconference.domain.service.ArticuloService;
+import com.easyconference.domain.service.ArticleService;
 import com.easyconference.domain.service.ConferenceService;
 import com.easyconference.presentation.GUIcontainer;
 
@@ -15,10 +15,10 @@ import com.easyconference.presentation.GUIcontainer;
  * </p>
  * 
  * <p>
- * El constructor de DummyGUIcontainer recibe un objeto Usuario, un 
- * ConferenceService y un ArticuloService, y los pasa al constructor 
- * de la clase padre GUIcontainer.
- * </p>
+ El constructor de DummyGUIcontainer recibe un objeto Usuario, un 
+ ConferenceService y un ArticleService, y los pasa al constructor 
+ de la clase padre GUIcontainer.
+ </p>
  * 
  * @author sonhuila
  */
@@ -32,7 +32,7 @@ class DummyGUIcontainer extends GUIcontainer {
      * @param con El servicio de conferencias.
      * @param artService El servicio de artículos.
      */
-    public DummyGUIcontainer(Usuario us, ConferenceService con, ArticuloService artService) {
+    public DummyGUIcontainer(Usuario us, ConferenceService con, ArticleService artService) {
         super(us, con, artService);
     }
 

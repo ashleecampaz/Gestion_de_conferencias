@@ -4,7 +4,8 @@
  */
 package com.easyconference.domain.service;
 
-import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.access.User.IUserRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
@@ -17,14 +18,14 @@ import javax.swing.JOptionPane;
  * @since 2024
  */
 public class UserService{
-    private IUserService repository;
+    private IUserRepository repository;
      /**
      * Constructor que recibe un repositorio de usuarios.
      *
-     * @param repository Un objeto que implementa la interfaz IUserService
-     *                   para manejar las operaciones de usuario.
+     * @param repository Un objeto que implementa la interfaz IUserRepository
+                   para manejar las operaciones de usuario.
      */
-    public UserService(IUserService repository) {
+    public UserService(IUserRepository repository) {
         this.repository = repository;
     }
        /**
@@ -99,7 +100,7 @@ public class UserService{
      *
      * @return El repositorio de usuarios.
      */
-    public IUserService getRepository() {
+    public IUserRepository getRepository() {
         return repository;
     }
    

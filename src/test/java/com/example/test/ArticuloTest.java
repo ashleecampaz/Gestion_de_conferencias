@@ -4,13 +4,12 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.easyconference.access.ArticuloArrayListRepository;
-import com.easyconference.access.ConferenceArrayListRepository;
+import com.easyconference.access.Article.ArticleArrayListRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario; // Importar Usuario para el Dummy
-import com.easyconference.domain.service.ArticuloService;
+import com.easyconference.domain.service.ArticleService;
 import com.easyconference.domain.service.ConferenceService; // Importar ConferenceService para el Dummy
-import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.presentation.GUIcreateArticle;
 import com.example.test.DummyGUIcontainer; // Importar tu clase Dummy
 import java.lang.reflect.Field;
@@ -19,6 +18,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import javax.swing.JTextArea;
 import javax.swing.SwingUtilities;
+import com.easyconference.access.Conference.IConferenceRepository;
 
 /**
  *
@@ -40,8 +40,8 @@ class ArticuloTest {
         txtfPalabrasClaves = new JTextField();
 
         // Instancia del repositorio y servicio de artículos
-        ArticuloArrayListRepository r = new ArticuloArrayListRepository();
-        ArticuloService a = new ArticuloService(r);
+        ArticleArrayListRepository r = new ArticleArrayListRepository();
+        ArticleService a = new ArticleService(r);
 
         // Instancia del repositorio de conferencias
         ConferenceArrayListRepository conferenceRepository = new ConferenceArrayListRepository();

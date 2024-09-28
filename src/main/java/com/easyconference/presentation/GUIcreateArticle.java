@@ -3,7 +3,7 @@ package com.easyconference.presentation;
 
 import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
-import com.easyconference.domain.service.ArticuloService;
+import com.easyconference.domain.service.ArticleService;
 import java.util.ArrayList;
 import javax.swing.JPanel;
 /**
@@ -20,7 +20,7 @@ import javax.swing.JPanel;
 public class GUIcreateArticle extends javax.swing.JInternalFrame {
     
     private Conference conference;
-    private ArticuloService objServicioArticulos;
+    private ArticleService objServicioArticulos;
     private String lastDialogMessage;
     private GUIcontainer parentContainer; // Referencia al contenedor principal
     /**
@@ -36,7 +36,7 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         return pnlAutores;
     }
 
-    public GUIcreateArticle(ArticuloService as,Conference co, GUIcontainer parentContainer) {
+    public GUIcreateArticle(ArticleService as,Conference co, GUIcontainer parentContainer) {
         this.objServicioArticulos = as;
         this.conference = co;
         listadoAutores = new ArrayList<>();

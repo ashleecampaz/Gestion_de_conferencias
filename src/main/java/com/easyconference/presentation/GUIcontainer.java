@@ -4,9 +4,8 @@ package com.easyconference.presentation;
 import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
-import com.easyconference.domain.service.ArticuloService;
+import com.easyconference.domain.service.ArticleService;
 import com.easyconference.domain.service.ConferenceService;
-import com.easyconference.domain.service.IUserService;
 import com.easyconference.domain.service.UserService;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -27,6 +26,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import com.easyconference.access.User.IUserRepository;
 
 /**
  * Interfaz contenedora 
@@ -39,12 +39,12 @@ public class GUIcontainer extends javax.swing.JFrame {
 
     private Usuario usuario;
     private ConferenceService conferenceService;
-    private ArticuloService articuloService;
+    private ArticleService articuloService;
 
     /**
      * Creates new form GUIcontainer
      */
-    public GUIcontainer(Usuario us, ConferenceService con, ArticuloService artService) {
+    public GUIcontainer(Usuario us, ConferenceService con, ArticleService artService) {
         this.usuario = us;
         this.conferenceService = con;
         this.articuloService = artService;
@@ -87,7 +87,7 @@ public class GUIcontainer extends javax.swing.JFrame {
             detallesButton.setPreferredSize(new Dimension(45, 40));  // Ajustamos el tamaño del botón
             detallesButton.addActionListener(e -> {
                 // Abre la ventana GUIcreateArticle para la conferencia seleccionada
-                GUIcreateArticle createArticleView = new GUIcreateArticle(articuloService, conference,this);  // Pasamos ArticuloService y Conference al constructor
+                GUIcreateArticle createArticleView = new GUIcreateArticle(articuloService, conference,this);  // Pasamos ArticleService y Conference al constructor
 
                 // Añadimos GUIcreateArticle al JDesktopPane
                 dskpaneContenedor.add(createArticleView);  // Agregamos la ventana al JDesktopPane
@@ -430,7 +430,7 @@ public class GUIcontainer extends javax.swing.JFrame {
 
     private void lbCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseClicked
         this.dispose();
-        UserService userService = new UserService((IUserService) conferenceService.getReferenceRepositoryConferency());
+        UserService userService = new UserService((IUserRepository) conferenceService.getReferenceRepositoryConferency());
         GUIlogin login = new GUIlogin(userService);
         login.setLocationRelativeTo(null);
         login.setVisible(true);

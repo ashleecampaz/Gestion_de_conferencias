@@ -1,4 +1,5 @@
 package com.easyconference.domain.service;
+import com.easyconference.access.Conference.IConferenceRepository;
 import java.util.List;
 import com.easyconference.domain.entities.Conference;
 /**
@@ -11,11 +12,11 @@ import com.easyconference.domain.entities.Conference;
 
 public class ConferenceService {
     
-    private IConferenceService referenceRepositoryConferency;
+    private IConferenceRepository referenceRepositoryConferency;
     
     //puedo enviar objetos que pertenecen a clases que implementan la interface
 
-    public ConferenceService(IConferenceService referenceRepositoryConferency) {
+    public ConferenceService(IConferenceRepository referenceRepositoryConferency) {
         this.referenceRepositoryConferency = referenceRepositoryConferency;
     }
  
@@ -32,7 +33,7 @@ public class ConferenceService {
         return this.referenceRepositoryConferency.SearchConferenciasForName(searchText);
     }
     
-    public IConferenceService getReferenceRepositoryConferency() {
+    public IConferenceRepository getReferenceRepositoryConferency() {
         return referenceRepositoryConferency;
     }
     

@@ -1,16 +1,19 @@
 
 package com.easyconference.presentation;
 
-import com.easyconference.access.ArticuloArrayListRepository;
+import com.easyconference.access.Article.ArticleArrayListRepository;
 import com.easyconference.domain.entities.Usuario;
-import com.easyconference.domain.service.ArticuloService;
+import com.easyconference.domain.service.ArticleService;
 import com.easyconference.domain.service.ConferenceService;
-import com.easyconference.domain.service.IArticuloService;
-import com.easyconference.domain.service.IConferenceService;
 import com.easyconference.domain.service.UserService;
 import java.awt.Dimension;
 import javax.swing.JOptionPane;
 import javax.swing.SpringLayout;
+import com.easyconference.access.Conference.IConferenceRepository;
+import com.easyconference.access.Article.IArticleRepository;
+import com.easyconference.access.Conference.ConferenceArrayListRepository;
+import com.easyconference.access.User.IUserRepository;
+import com.easyconference.access.User.UserArrayListRepository;
 
 /**
  * Interfaz Login
@@ -261,14 +264,19 @@ public class GUIlogin extends javax.swing.JFrame {
             this.dispose();
 
             // Crear instancia de ConferenceService
-            ConferenceService conferenceService = new ConferenceService((IConferenceService) userService.getRepository());
+//            ConferenceService conferenceService = new ConferenceService((IConferenceRepository) userService.getRepository());
+            IConferenceRepository ConferenceRepo = new ConferenceArrayListRepository(); // O la implementación que uses
+            ConferenceService ConferenceService = new ConferenceService(ConferenceRepo);        
+            //Crear instancia de servicio de usuario
+            IUserRepository UserRepo = new UserArrayListRepository();
+            userService= new UserService(UserRepo);
 
-            // Crear instancia de ArticuloService usando un repositorio concreto
-            IArticuloService articuloRepo = new ArticuloArrayListRepository(); // O la implementación que uses
-            ArticuloService articuloService = new ArticuloService(articuloRepo);
+            // Crear instancia de ArticleService usando un repositorio concreto
+            IArticleRepository articuloRepo = new ArticleArrayListRepository(); // O la implementación que uses
+            ArticleService articuloService = new ArticleService(articuloRepo);
 
-            // Pasar Usuario, ConferenceService y ArticuloService al constructor de GUIcontainer
-            GUIcontainer inicio = new GUIcontainer(us, conferenceService, articuloService);
+            // Pasar Usuario, ConferenceService y ArticleService al constructor de GUIcontainer
+            GUIcontainer inicio = new GUIcontainer(us, ConferenceService, articuloService);
             inicio.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Información", JOptionPane.INFORMATION_MESSAGE);
