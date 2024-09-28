@@ -64,7 +64,6 @@ public class ConferenceArrayListRepository implements IConferenceService, IUserS
     public List<Usuario> listUsuario() {
         return this.usuarios;
     }
-
     /**
      * Agrega un nuevo usuario al repositorio si su email no está registrado.
      *
@@ -180,5 +179,15 @@ public class ConferenceArrayListRepository implements IConferenceService, IUserS
             }
        }
        return null;
+    }
+    @Override
+    public List<Conference> SearchConferenciasForName(String searchText) {
+        List<Conference> result = new ArrayList<>();
+        for (Conference conference : listConference) {
+            if (conference.getName().toLowerCase().contains(searchText.toLowerCase())) {
+                result.add(conference);
+            }
+        }
+        return result;
     }
 }

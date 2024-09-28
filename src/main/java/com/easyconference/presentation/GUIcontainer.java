@@ -49,13 +49,13 @@ public class GUIcontainer extends javax.swing.JFrame {
         this.conferenceService = con;
         this.articuloService = artService;
         initComponents();
-        listConferences();
+        listConferences("");//muestra todas las listas
         listArticles();
     }
 
     @SuppressWarnings("unchecked")
     // Método que se ejecuta cuando el usuario hace clic en "Listado de conferencias"
-    public void listConferences() {
+    public void listConferences(String searchText) {
         pnlListadoCon.removeAll();  // Limpiamos el contenido actual del panel de conferencias
 
         // Configuramos el layout del panel para mantener el título arriba
@@ -69,7 +69,7 @@ public class GUIcontainer extends javax.swing.JFrame {
         pnlListadoCon.add(lbListadoCon, BorderLayout.NORTH);
 
         // Obtenemos todas las conferencias desde el servicio
-        List<Conference> conferences = conferenceService.listarConferencias();
+        List<Conference> conferences = conferenceService.search(searchText);
 
         // Por cada conferencia, creamos un mini panel con su información
         for (Conference conference : conferences) {
@@ -409,7 +409,15 @@ public class GUIcontainer extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCrearConMouseClicked
 
     private void lbBtnBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbBtnBuscarMouseClicked
+    String searchText = txtfBusqueda.getText().trim().toLowerCase();  // Obtener texto de búsqueda
+    List<Conference> foundConferences = conferenceService.search(searchText);  // Buscar conferencias que coincidan
 
+    pnlListadoCon.removeAll();  // Limpiar el panel de resultados anteriores
+    
+        listConferences(searchText);
+    
+    pnlListadoCon.revalidate();
+    pnlListadoCon.repaint();
     }//GEN-LAST:event_lbBtnBuscarMouseClicked
 
     private void lbCerrarSesionMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseEntered

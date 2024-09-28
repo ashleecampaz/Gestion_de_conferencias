@@ -13,4 +13,5 @@ import java.util.List;
 public interface IConferenceService {
     public boolean storeConference(Conference objConference);
     public List<Conference> listConference();
+    public List<Conference> SearchConferenciasForName(String searchText);
 }

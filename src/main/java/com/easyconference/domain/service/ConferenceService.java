@@ -27,7 +27,11 @@ public class ConferenceService {
     public List<Conference> listarConferencias() {
         return this.referenceRepositoryConferency.listConference();
     }
-
+    
+    public List<Conference> search(String searchText){
+        return this.referenceRepositoryConferency.SearchConferenciasForName(searchText);
+    }
+    
     public IConferenceService getReferenceRepositoryConferency() {
         return referenceRepositoryConferency;
     }

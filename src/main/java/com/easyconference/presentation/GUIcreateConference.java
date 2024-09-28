@@ -566,7 +566,7 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             conferenceService.almacenarConferencia(conferencia);
             showMessage("Conferencia registrada exitosamente.");
             this.dispose();
-            guiContainer.listConferences();
+            guiContainer.listConferences("");
         } catch (DateTimeParseException e) {
             showMessage("Error: Formato de fecha no válido. Debe ser dd-MM-yyyy.");
         } catch (Exception e) {

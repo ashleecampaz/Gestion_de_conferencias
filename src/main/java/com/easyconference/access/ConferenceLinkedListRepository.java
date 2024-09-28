@@ -50,4 +50,8 @@ public class ConferenceLinkedListRepository implements IConferenceService {
     public List<Conference> listConference() {
         return this.listConference;
     }
+    @Override
+    public List<Conference> SearchConferenciasForName(String searchText){
+        return this.listConference;
+    }
 }
