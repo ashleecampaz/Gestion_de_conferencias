@@ -22,7 +22,7 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
     private Conference conference;
     private ArticleService objServicioArticulos;
     private String lastDialogMessage;
-    private GUIcontainer parentContainer; // Referencia al contenedor principal
+    
     /**
      * Creates new form GUIcreateArticle
      */
@@ -36,11 +36,10 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
         return pnlAutores;
     }
 
-    public GUIcreateArticle(ArticleService as,Conference co, GUIcontainer parentContainer) {
+    public GUIcreateArticle(ArticleService as,Conference co) {
         this.objServicioArticulos = as;
         this.conference = co;
         listadoAutores = new ArrayList<>();
-        this.parentContainer = parentContainer;
         initComponents();
         lbAgregarAutorMouseClicked(null);
         lbAgregarAutorMouseClicked(null);
@@ -282,7 +281,8 @@ public class GUIcreateArticle extends javax.swing.JInternalFrame {
 
                 if (exito) {
                     mostrarMensajeExito("Artículo enviado exitosamente.");
-                    parentContainer.listArticles();
+                    objServicioArticulos.notifyAllObserves();
+                    
                     this.dispose();
                 } else {
                     mostrarMensajeError("No se pudo registrar el artículo.");

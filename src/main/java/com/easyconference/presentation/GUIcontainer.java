@@ -27,7 +27,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import com.easyconference.access.User.IUserRepository;
-
+import com.easyconference.infra.Observer;
 /**
  * Interfaz contenedora 
  * 
@@ -35,7 +35,7 @@ import com.easyconference.access.User.IUserRepository;
  * @version 1.0
  * @since 2024
  */
-public class GUIcontainer extends javax.swing.JFrame {
+public class GUIcontainer extends javax.swing.JFrame implements Observer{
 
     private Usuario usuario;
     private ConferenceService conferenceService;
@@ -87,8 +87,9 @@ public class GUIcontainer extends javax.swing.JFrame {
             detallesButton.setPreferredSize(new Dimension(45, 40));  // Ajustamos el tamaño del botón
             detallesButton.addActionListener(e -> {
                 // Abre la ventana GUIcreateArticle para la conferencia seleccionada
-                GUIcreateArticle createArticleView = new GUIcreateArticle(articuloService, conference,this);  // Pasamos ArticleService y Conference al constructor
-
+                GUIcreateArticle createArticleView = new GUIcreateArticle(articuloService, conference);  // Pasamos ArticleService y Conference al constructor
+                
+                articuloService.addObserver(this);
                 // Añadimos GUIcreateArticle al JDesktopPane
                 dskpaneContenedor.add(createArticleView);  // Agregamos la ventana al JDesktopPane
 
@@ -397,7 +398,7 @@ public class GUIcontainer extends javax.swing.JFrame {
     }//GEN-LAST:event_lbCrearConMouseExited
 
     private void lbCrearConMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCrearConMouseClicked
-        GUIcreateConference crearConferencia = new GUIcreateConference(conferenceService, this);
+        GUIcreateConference crearConferencia = new GUIcreateConference(conferenceService);
         try {
             crearConferencia.setMaximum(true);
         } catch (PropertyVetoException ex) {
@@ -454,4 +455,17 @@ public class GUIcontainer extends javax.swing.JFrame {
     private javax.swing.JPanel pnlSuperior;
     private javax.swing.JTextField txtfBusqueda;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void update(Object o) {
+        switch (o.getClass().getSimpleName()){
+            case "ConferenceService": 
+                listConferences(""); 
+                break;
+            case "ArticleService":
+                listArticles();
+                break;
+        }
+        this.repaint();
+    }
 }

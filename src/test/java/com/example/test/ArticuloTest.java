@@ -61,7 +61,7 @@ class ArticuloTest {
         DummyGUIcontainer dummyContainer = new DummyGUIcontainer(usuario, conferenceService, a);
 
         // Pasar la conferencia al formulario y crear la instancia de la GUI
-        articuloForm = new GUIcreateArticle(a, conference, dummyContainer);
+        articuloForm = new GUIcreateArticle(a, conference);
 
         // Usar Reflection para acceder a los campos privados de GUIcreateArticle
         setPrivateField("txtfTitulo", txtfTitulo, articuloForm);
@@ -132,7 +132,7 @@ class ArticuloTest {
     private void invokeMouseClick(String methodName) throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             try {
-                Method method = GUIcreateArticle.class.getDeclaredMethod(methodName, java.awt.event.MouseEvent.class);
+                Method method = GUIcreateArticle.class.getDeclaredMethod(methodName);
                 method.setAccessible(true);
                 method.invoke(articuloForm, (java.awt.event.MouseEvent) null);
             } catch (Exception e) {

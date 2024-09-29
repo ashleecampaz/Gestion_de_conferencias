@@ -2,6 +2,7 @@ package com.easyconference.domain.service;
 import com.easyconference.access.Conference.IConferenceRepository;
 import java.util.List;
 import com.easyconference.domain.entities.Conference;
+import com.easyconference.infra.Subject;
 /**
  * Esta clase contiene los metodos de la clase conferencia, especialmente de almacenamiento y listado
  * 
@@ -10,7 +11,7 @@ import com.easyconference.domain.entities.Conference;
  * @since 2024
  */
 
-public class ConferenceService {
+public class ConferenceService extends Subject {
     
     private IConferenceRepository referenceRepositoryConferency;
     

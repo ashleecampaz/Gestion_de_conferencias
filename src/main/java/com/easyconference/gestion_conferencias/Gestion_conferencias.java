@@ -23,14 +23,14 @@ import com.easyconference.domain.service.ConferenceService;
 public class Gestion_conferencias {
 
     public static void main(String[] args) {
-        IUserRepository repoUser = (IUserRepository) Factory.getInstance().getUserRepository("default");
-        UserService userService = new UserService((IUserRepository) repoUser);
+        IUserRepository repoUser = Factory.getInstance().getUserRepository("default");
+        UserService userService = new UserService( repoUser);
         
-        IConferenceRepository repoConference = (IConferenceRepository) Factory.getInstance().getConferenceRepository("default");
-        ConferenceService ConferenceService = new ConferenceService((IConferenceRepository) repoConference);
+        IConferenceRepository repoConference =  Factory.getInstance().getConferenceRepository("default");
+        ConferenceService ConferenceService = new ConferenceService( repoConference);
         
-        IArticleRepository repoArticle = (IArticleRepository) Factory.getInstance().getArticleRepository("default");
-        ArticleService ArticleService = new ArticleService((IArticleRepository) repoArticle);
+        IArticleRepository repoArticle = Factory.getInstance().getArticleRepository("default");
+        ArticleService ArticleService = new ArticleService( repoArticle);
         
         
         

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
 public class GUIcreateConference extends javax.swing.JInternalFrame {
         // Variable para almacenar el último mensaje de diálogo
     private String lastDialogMessage;
-    private GUIcontainer guiContainer;
+    
 
     // Método para mostrar el diálogo y almacenar el mensaje
     public void showMessage(String message) {
@@ -40,9 +40,9 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
        private Usuario usuario;
 
     
-    public GUIcreateConference(ConferenceService con, GUIcontainer container) {
+    public GUIcreateConference(ConferenceService con) {
         this.conferenceService = con;
-        this.guiContainer = container;  // Guardamos la referencia de GUIcontainer
+       
         initComponents();
     }
 
@@ -455,11 +455,11 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void pnlBotonGuardarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseExited
-        // TODO add your handling code here:
+       lbGuardar1.setFont(new java.awt.Font("Segoe UI Semilight", 0, 14));
     }//GEN-LAST:event_pnlBotonGuardarMouseExited
 
     private void pnlBotonGuardarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseEntered
-        // TODO add your handling code here:
+        lbGuardar1.setFont(new java.awt.Font("Segoe UI Semilight", 1, 14));
     }//GEN-LAST:event_pnlBotonGuardarMouseEntered
 
     private void pnlBotonGuardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_pnlBotonGuardarMouseClicked
@@ -565,8 +565,9 @@ public class GUIcreateConference extends javax.swing.JInternalFrame {
             // Guardar la conferencia o realizar la acción que corresponda
             conferenceService.almacenarConferencia(conferencia);
             showMessage("Conferencia registrada exitosamente.");
+            conferenceService.notifyAllObserves();
             this.dispose();
-            guiContainer.listConferences("");
+            
         } catch (DateTimeParseException e) {
             showMessage("Error: Formato de fecha no válido. Debe ser dd-MM-yyyy.");
         } catch (Exception e) {

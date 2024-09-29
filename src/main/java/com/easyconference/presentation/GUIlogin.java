@@ -277,6 +277,7 @@ public class GUIlogin extends javax.swing.JFrame {
 
             // Pasar Usuario, ConferenceService y ArticleService al constructor de GUIcontainer
             GUIcontainer inicio = new GUIcontainer(us, ConferenceService, articuloService);
+            ConferenceService.addObserver(inicio);
             inicio.setVisible(true);
         } else {
             JOptionPane.showMessageDialog(null, "Contraseña y/o usuario incorrecto", "Información", JOptionPane.INFORMATION_MESSAGE);
