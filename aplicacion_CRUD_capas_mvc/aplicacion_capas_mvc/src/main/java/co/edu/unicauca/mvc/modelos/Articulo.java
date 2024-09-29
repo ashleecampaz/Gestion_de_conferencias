@@ -1,20 +1,24 @@
 package co.edu.unicauca.mvc.modelos;
 
-public class Articulo {
-   private int idArticulo;
-   private String titulo;
-   private String autores;
-   
-   private Conferencia objConferencia;
+import co.edu.unicauca.mvc.infraestructura.Subject;
 
-   public Articulo()
-   {
-       
-   }
-    public Articulo(int idArticulo, String titulo, String autores) {
-        this.idArticulo = idArticulo;
+public class Articulo {
+    private int idArticulo;
+    private String titulo;
+    private String autores;
+    private EstadoRevision estadoRevision;
+    
+   
+    private Conferencia objConferencia;
+
+    public Articulo(String titulo, String autores) {
         this.titulo = titulo;
         this.autores = autores;
+        this.estadoRevision = estadoRevision.PENDIENTE; // Estado inicial
+    }
+
+    public void setEstadoRevision(EstadoRevision estadoRevision) {
+        this.estadoRevision = estadoRevision;
     }
 
     public int getIdArticulo() {

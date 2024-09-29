@@ -8,6 +8,7 @@ import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoArticulos;
 import co.edu.unicauca.mvc.controladores.ServicioAlmacenamientoConferencias;
 import co.edu.unicauca.mvc.modelos.Articulo;
 import co.edu.unicauca.mvc.modelos.Conferencia;
+import co.edu.unicauca.mvc.modelos.EstadoRevision;
 import co.edu.unicauca.mvc.utilidades.Utilidades;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -26,11 +27,9 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
             ServicioAlmacenamientoConferencias objServicio2) {
         initComponents();
         this.objServicio1=objServicio1;
-        this.objServicio2=objServicio2;
-       
+        this.objServicio2=objServicio2;  
     }
     
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -59,7 +58,7 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
         jComboBoxFormato = new javax.swing.JComboBox<>();
         jTextAreaAutores = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
@@ -92,7 +91,7 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 578, Short.MAX_VALUE)
+            .addGap(0, 566, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +155,7 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(0, 116, Short.MAX_VALUE)
                                 .addComponent(jButtonRegistrar))
-                            .addComponent(jComboBoxTipo, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(jComboBoxTipo, 0, 188, Short.MAX_VALUE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabelResumenFormato)
@@ -178,7 +177,7 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
                     .addComponent(jTextFieldTitulo2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
+                        .addGap(49, 49, 49)
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabelResumenFormato)
                             .addComponent(jComboBoxFormato, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -215,13 +214,14 @@ public class VtnRegistrarArticulo extends javax.swing.JInternalFrame {
         autores=this.jTextAreaAutores.getText();
        
         
-        Articulo objArticulo= new Articulo();
-        objArticulo.setTitulo(titulo);
-        objArticulo.setAutores(autores);
-       
+        Articulo objArticulo= new Articulo(titulo, autores);
+        objArticulo.setIdArticulo(1);
         
         bandera=this.objServicio1.almacenarArticulo(objArticulo);
+        Revisor revisor1 = new Revisor("Revisor 1");
+        objServicio1.addObserver(revisor1);
         
+        objArticulo.setEstadoRevision(EstadoRevision.REVISADO);
         if(bandera==true)
         {
             Utilidades.mensajeExito("Registro exitoso", "Registro exitoso");
