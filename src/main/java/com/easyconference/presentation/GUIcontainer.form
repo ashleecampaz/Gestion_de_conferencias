@@ -100,7 +100,7 @@
                       <Font name="Segoe UI Semilight" size="24" style="1"/>
                     </Property>
                     <Property name="text" type="java.lang.String" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="&quot;Bienvenido! &quot;+ usuario.getName() + &quot; &quot; + usuario.getLastName()" type="code"/>
+                      <Connection code="&quot;Bienvenido! &quot;" type="code"/>
                     </Property>
                   </Properties>
                   <Constraints>

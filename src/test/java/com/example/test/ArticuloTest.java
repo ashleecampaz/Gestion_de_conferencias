@@ -11,7 +11,6 @@ import com.easyconference.domain.entities.Usuario; // Importar Usuario para el D
 import com.easyconference.domain.service.ArticleService;
 import com.easyconference.domain.service.ConferenceService; // Importar ConferenceService para el Dummy
 import com.easyconference.presentation.GUIcreateArticle;
-import com.example.test.DummyGUIcontainer; // Importar tu clase Dummy
 import java.lang.reflect.Field;
 import javax.swing.JTextField;
 import java.lang.reflect.InvocationTargetException;
@@ -55,10 +54,10 @@ class ArticuloTest {
                 "18-10-2024", "Calle Falsa 123", "Madrid", "España",
                 80, 100, 7.5f);
 
-        // Crear una instancia del DummyGUIcontainer
+        
         Usuario usuario = new Usuario("Test", "Test", "Test", "Test", "Test", "Test", "Test");
 
-        DummyGUIcontainer dummyContainer = new DummyGUIcontainer(usuario, conferenceService, a);
+        
 
         // Pasar la conferencia al formulario y crear la instancia de la GUI
         articuloForm = new GUIcreateArticle(a, conference);
@@ -132,7 +131,7 @@ class ArticuloTest {
     private void invokeMouseClick(String methodName) throws Exception {
         SwingUtilities.invokeAndWait(() -> {
             try {
-                Method method = GUIcreateArticle.class.getDeclaredMethod(methodName);
+                Method method = GUIcreateArticle.class.getDeclaredMethod(methodName,java.awt.event.MouseEvent.class);
                 method.setAccessible(true);
                 method.invoke(articuloForm, (java.awt.event.MouseEvent) null);
             } catch (Exception e) {

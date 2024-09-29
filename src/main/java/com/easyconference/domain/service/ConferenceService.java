@@ -1,5 +1,6 @@
 package com.easyconference.domain.service;
 import com.easyconference.access.Conference.IConferenceRepository;
+import com.easyconference.access.Factory;
 import java.util.List;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.infra.Subject;
@@ -19,6 +20,10 @@ public class ConferenceService extends Subject {
 
     public ConferenceService(IConferenceRepository referenceRepositoryConferency) {
         this.referenceRepositoryConferency = referenceRepositoryConferency;
+    }
+    
+     public ConferenceService(String typeRepositoy) {
+        this.referenceRepositoryConferency = Factory.getInstance().getConferenceRepository(typeRepositoy);
     }
  
     public boolean almacenarConferencia(Conference objConfererence) {

@@ -1,6 +1,7 @@
 
 package com.easyconference.presentation;
 
+import com.easyconference.access.Factory;
 import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
@@ -38,9 +39,10 @@ import com.easyconference.infra.Observer;
 public class GUIcontainer extends javax.swing.JFrame implements Observer{
 
     private Usuario usuario;
+    private UserService userService;
     private ConferenceService conferenceService;
     private ArticleService articuloService;
-
+    private GUIlogin login;
     /**
      * Creates new form GUIcontainer
      */
@@ -52,7 +54,31 @@ public class GUIcontainer extends javax.swing.JFrame implements Observer{
         listConferences("");//muestra todas las listas
         listArticles();
     }
-
+    
+    public GUIcontainer(Usuario us, UserService userService) {
+        this.usuario = us;
+        this.conferenceService = new ConferenceService("default");
+        conferenceService.addObserver(this);
+        this.articuloService = new ArticleService("default");
+        articuloService.addObserver(this);
+        this.userService = userService;
+        initComponents();
+        listConferences("");//muestra todas las listas
+        listArticles();
+    }
+    
+       public GUIcontainer(UserService userService, GUIlogin log) {
+        this.conferenceService = new ConferenceService("default");
+        conferenceService.addObserver(this);
+        this.articuloService = new ArticleService("default");
+        articuloService.addObserver(this);
+        this.userService = userService;
+        this.login = log;
+        initComponents();
+        listConferences("");//muestra todas las listas
+        listArticles();
+    }
+       
     @SuppressWarnings("unchecked")
     // Método que se ejecuta cuando el usuario hace clic en "Listado de conferencias"
     public void listConferences(String searchText) {
@@ -237,7 +263,7 @@ public class GUIcontainer extends javax.swing.JFrame implements Observer{
         intfInicio.getContentPane().setLayout(new java.awt.GridBagLayout());
 
         lbBienvenido.setFont(new java.awt.Font("Segoe UI Semilight", 1, 24)); // NOI18N
-        lbBienvenido.setText("Bienvenido! "+ usuario.getName() + " " + usuario.getLastName());
+        lbBienvenido.setText("Bienvenido! ");
         gridBagConstraints = new java.awt.GridBagConstraints();
         gridBagConstraints.gridx = 0;
         gridBagConstraints.gridy = 0;
@@ -431,11 +457,14 @@ public class GUIcontainer extends javax.swing.JFrame implements Observer{
 
     private void lbCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarSesionMouseClicked
         this.dispose();
-        UserService userService = new UserService((IUserRepository) conferenceService.getReferenceRepositoryConferency());
-        GUIlogin login = new GUIlogin(userService);
         login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_lbCerrarSesionMouseClicked
+    
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+         lbBienvenido.setText("Bienvenido! "+ usuario.getName() + " " + usuario.getLastName());
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

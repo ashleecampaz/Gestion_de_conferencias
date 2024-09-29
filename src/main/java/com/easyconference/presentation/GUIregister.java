@@ -25,11 +25,12 @@ import java.util.List;
 public class GUIregister extends javax.swing.JFrame {
 
     private UserService registerService;
-    
+    private GUIlogin login;
 
-    public GUIregister(UserService registerService) {
+    public GUIregister(UserService registerService, GUIlogin log) {
         initComponents();
         this.registerService = registerService;
+        this.login= log;
         setupEventListeners();
     }
     
@@ -336,7 +337,6 @@ public class GUIregister extends javax.swing.JFrame {
 
     private void lbYatienesCuentaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbYatienesCuentaMouseClicked
         this.dispose();
-        GUIlogin login = new GUIlogin(registerService);
         login.setLocationRelativeTo(null);
         login.setVisible(true);
     }//GEN-LAST:event_lbYatienesCuentaMouseClicked

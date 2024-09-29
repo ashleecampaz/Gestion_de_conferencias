@@ -3,6 +3,7 @@ package com.easyconference.domain.service;
 import com.easyconference.domain.entities.Articulo;
 import java.util.List;
 import com.easyconference.access.Article.IArticleRepository;
+import com.easyconference.access.Factory;
 import com.easyconference.infra.Subject;
 
 /**
@@ -14,6 +15,10 @@ public class ArticleService extends Subject {
     
     public ArticleService(IArticleRepository referenciaRepositorioArticulos) {
         this.referenciaRepositorioArticulos = referenciaRepositorioArticulos;
+    }
+    
+    public ArticleService(String typeRepositoy) {
+        this.referenciaRepositorioArticulos = Factory.getInstance().getArticleRepository(typeRepositoy);
     }
     
     public boolean almacenarArticulo(Articulo objArticulo) {
