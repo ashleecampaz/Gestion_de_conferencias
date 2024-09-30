@@ -4,7 +4,13 @@ import com.easyconference.domain.entities.Usuario;
 import java.util.List;
 /**
  * Esta Interfaz contiene metodos para el manejo de usuarios en el login
- * @author 
+* @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
+ * @version 1.0
+ * @since 2024
  * @version 1.0
  * @since 2024
  */

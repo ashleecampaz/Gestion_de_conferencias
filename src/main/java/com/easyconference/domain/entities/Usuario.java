@@ -2,9 +2,14 @@
 package com.easyconference.domain.entities;
 
 /**
- * Clase Usuario
+ * Clase Usuario que representa los datos personales de un usuario, como nombre, apellido, email, país, 
+ * organización y áreas de interés.
  * 
- * @author 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

@@ -2,9 +2,18 @@ package com.easyconference.domain.entities;
 
 import java.util.ArrayList;
 
+
 /**
- *
- * @author sonhuila
+ * La clase Articulo representa un artículo que contiene un nombre, una lista de autores,
+ * un resumen y palabras clave asociadas.
+ * 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
+ * @version 1.0
+ * @since 2024
  */
 public class Articulo {
     private String nombre;

@@ -13,7 +13,11 @@ import com.easyconference.access.User.IUserRepository;
  * como tambien de usuarios, ademas de realizar algunas validaciones 
  * a la clase usuario
  * 
- * @author 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

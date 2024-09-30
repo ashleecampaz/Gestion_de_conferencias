@@ -1,9 +1,14 @@
 
 package com.easyconference.domain.entities;
 /**
- * Clase conferencia 
+ * Clase Conference que representa los detalles de una conferencia, incluyendo nombre, tema, entidad organizadora, 
+ * ubicación, fechas importantes y métricas de evaluación de artículos.
  * 
- * @author 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

@@ -7,7 +7,13 @@ import com.easyconference.infra.Subject;
 /**
  * Esta clase contiene los metodos de la clase conferencia, especialmente de almacenamiento y listado
  * 
- * @author 
+ *@author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
+ * @version 1.0
+ * @since 2024
  * @version 1.0
  * @since 2024
  */

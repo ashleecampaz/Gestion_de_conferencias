@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package com.easyconference.access.User;
 
 import com.easyconference.domain.entities.Conference;
@@ -11,8 +8,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 /**
- *
- * @author Personal
+ * Clase UserArrayListRepository que gestiona el almacenamiento de usuarios
+ * en un ArrayList. Permite agregar usuarios, validar campos, y verificar
+ * la existencia de un email registrado.
+ * 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
+ * @version 1.0
+ * @since 2024
  */
 public class UserArrayListRepository implements IUserRepository {
     private ArrayList<Usuario> usuarios;

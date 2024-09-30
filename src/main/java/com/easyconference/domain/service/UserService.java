@@ -13,7 +13,13 @@ import javax.swing.JOptionPane;
 /**
  * Esta clase contiene servivios para la clase Usuario
  * 
- * @author 
+ *@author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
+ * @version 1.0
+ * @since 2024
  * @version 1.0
  * @since 2024
  */

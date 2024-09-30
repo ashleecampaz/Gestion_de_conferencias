@@ -3,9 +3,14 @@ package com.easyconference.access.Conference;
 import com.easyconference.domain.entities.Conference;
 import java.util.List;
 /**
- * Esta clase representa la interfaz para los servicios de la conferencia
+ * Interfaz IConferenceRepository que define los métodos para manejar
+ * el almacenamiento y la recuperación de conferencias.
  * 
- * @author 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

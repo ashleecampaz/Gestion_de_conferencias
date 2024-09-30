@@ -8,9 +8,11 @@ import java.util.List;
  * Esta clase representa una Repositorio basado en LinkedList
  * Permite almacenar y recuperar información sobre conferencias.
  * 
- * @author 
- * @version 1.0
- * @since 2024
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  */
 
 public class ConferenceLinkedListRepository implements IConferenceRepository {

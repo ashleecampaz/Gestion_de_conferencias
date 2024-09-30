@@ -1,7 +1,7 @@
 
 package com.easyconference.presentation;
 
-import com.easyconference.access.Factory;
+
 import com.easyconference.domain.entities.Articulo;
 import com.easyconference.domain.entities.Conference;
 import com.easyconference.domain.entities.Usuario;
@@ -11,11 +11,7 @@ import com.easyconference.domain.service.UserService;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.logging.Level;
@@ -24,15 +20,19 @@ import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
+
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-import com.easyconference.access.User.IUserRepository;
+
 import com.easyconference.infra.Observer;
 /**
  * Interfaz contenedora 
  * 
- * @author 
+* @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

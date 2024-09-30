@@ -8,12 +8,14 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 /**
  *
- * @author Ashlee Campaz
- * @author sonhuila
  *
  * Interfaz para el envio de articulos.
  * 
- * @author 
+* @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */

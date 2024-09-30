@@ -14,7 +14,11 @@ import com.easyconference.access.Article.IArticleRepository;
  * Esta clase implementa el patrón Singleton para proporcionar una instancia única
  * de la clase Factory, la cual se encarga de crear repositorios de conferencias.
  * 
- * @author 
+ * @author Maria Paula Barrera
+ * @author Ashlee Vanessa Campaz
+ * @author Monica Alejandra Castellanos
+ * @author Karold Dirley Delgado
+ * @author William Andres Serna
  * @version 1.0
  * @since 2024
  */
